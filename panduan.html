@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panduan Pengerjaan — Geologi Fisik 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .section-header { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); }
+    .step-card { border-left: 4px solid #6366f1; }
+    .badge-pg  { background: #dbeafe; color: #1d4ed8; }
+    .badge-bs  { background: #fef3c7; color: #b45309; }
+    .badge-is  { background: #f3e8ff; color: #7c3aed; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Sticky Header -->
+  <div class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 py-3 px-4 shadow-sm">
+    <div class="max-w-3xl mx-auto flex items-center justify-between">
+      <span class="text-sm font-semibold text-gray-700">Geologi Fisik 2026</span>
+      <a href="index.html"
+         class="text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full transition-colors">
+        Mulai Kuis →
+      </a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="section-header text-white py-10 px-4">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-blue-300 text-xs font-semibold uppercase tracking-widest mb-2">Panduan Pengerjaan</p>
+      <h1 class="text-2xl md:text-3xl font-bold mb-2">Geologi Fisik 2026</h1>
+      <p class="text-blue-200 text-sm md:text-base">Baca panduan ini sebelum memulai kuis agar tidak ada kebingungan saat mengerjakan.</p>
+      <div class="mt-5 flex flex-wrap gap-2 text-xs">
+        <span class="bg-white/20 px-3 py-1 rounded-full">100 Soal Total</span>
+        <span class="bg-white/20 px-3 py-1 rounded-full">6 Bagian Materi</span>
+        <span class="bg-yellow-400/90 text-yellow-900 px-3 py-1 rounded-full font-semibold">⚠ 2× Percobaan Wajib</span>
+        <span class="bg-red-400/90 text-white px-3 py-1 rounded-full font-semibold">🔒 Deadline: Minggu 18 Okt 2026, 23.00 WIB</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-3xl mx-auto px-4 py-8 space-y-8">
+
+    <!-- 1. Tentang Kuis -->
+    <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <span class="text-2xl">📚</span> Tentang Kuis Ini
+      </h2>
+      <p class="text-sm text-gray-600 mb-4">
+        Kuis ini adalah <strong>latihan mandiri</strong> — bukan tes/ujian resmi. Tujuannya agar kamu dapat mengukur pemahaman materi sebelum ETS.
+      </p>
+
+      <!-- Tabel soal -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-gray-50 text-gray-600 text-xs uppercase">
+              <th class="text-left px-3 py-2 border border-gray-200 rounded-tl-lg">Bagian</th>
+              <th class="text-left px-3 py-2 border border-gray-200">Materi</th>
+              <th class="text-center px-3 py-2 border border-gray-200">Soal</th>
+              <th class="text-center px-3 py-2 border border-gray-200 rounded-tr-lg">Tipe</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700">
+            <tr class="hover:bg-gray-50">
+              <td class="px-3 py-2 border border-gray-200 font-semibold text-indigo-700">A</td>
+              <td class="px-3 py-2 border border-gray-200">Tektonik Lempeng</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">1–17</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">
+                <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span>
+                <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium ml-1">B/S</span>
+                <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium ml-1">Isian</span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-3 py-2 border border-gray-200 font-semibold text-indigo-700">B</td>
+              <td class="px-3 py-2 border border-gray-200">Siklus Batuan</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">18–34</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">
+                <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span>
+                <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium ml-1">B/S</span>
+                <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium ml-1">Isian</span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-3 py-2 border border-gray-200 font-semibold text-indigo-700">C</td>
+              <td class="px-3 py-2 border border-gray-200">Batuan Beku</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">35–50</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">
+                <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span>
+                <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium ml-1">B/S</span>
+                <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium ml-1">Isian</span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-3 py-2 border border-gray-200 font-semibold text-indigo-700">D</td>
+              <td class="px-3 py-2 border border-gray-200">Pelapukan dan Regolith</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">51–62</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">
+                <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span>
+                <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium ml-1">B/S</span>
+                <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium ml-1">Isian</span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-3 py-2 border border-gray-200 font-semibold text-indigo-700">E</td>
+              <td class="px-3 py-2 border border-gray-200">Batuan Sedimen</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">63–86</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">
+                <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span>
+                <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium ml-1">B/S</span>
+                <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium ml-1">Isian</span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-3 py-2 border border-gray-200 font-semibold text-indigo-700 rounded-bl-lg">F</td>
+              <td class="px-3 py-2 border border-gray-200">Geologi dalam Pertambangan</td>
+              <td class="px-3 py-2 border border-gray-200 text-center">87–100</td>
+              <td class="px-3 py-2 border border-gray-200 text-center rounded-br-lg">
+                <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span>
+                <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium ml-1">B/S</span>
+                <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium ml-1">Isian</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Badge tipe soal -->
+      <div class="mt-4 grid grid-cols-3 gap-3 text-center text-sm">
+        <div class="bg-blue-50 rounded-xl p-3">
+          <p class="text-2xl font-extrabold text-blue-700">51</p>
+          <p class="text-xs text-blue-600 font-medium mt-0.5">Pilihan Ganda</p>
+        </div>
+        <div class="bg-yellow-50 rounded-xl p-3">
+          <p class="text-2xl font-extrabold text-yellow-700">19</p>
+          <p class="text-xs text-yellow-600 font-medium mt-0.5">Benar / Salah</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-3">
+          <p class="text-2xl font-extrabold text-purple-700">30</p>
+          <p class="text-xs text-purple-600 font-medium mt-0.5">Isian Singkat</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Sistem 2 Percobaan -->
+    <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <span class="text-2xl">🔄</span> Sistem 2 Percobaan Wajib
+      </h2>
+      <p class="text-sm text-gray-600 mb-4">
+        Kamu <strong>wajib mengerjakan dua kali</strong>. Nilai akhir adalah rata-rata dari kedua percobaan.
+      </p>
+      <div class="space-y-3">
+        <div class="step-card bg-indigo-50 rounded-r-xl px-4 py-3">
+          <p class="text-sm font-bold text-indigo-800">Percobaan 1 — Urutan Normal</p>
+          <p class="text-xs text-indigo-700 mt-1">Soal muncul sesuai urutan asli (No. 1–100). Setelah submit, kamu akan langsung tahu <strong>mana yang benar dan mana yang salah</strong> (warna hijau/merah), tapi <strong>kunci jawaban belum ditampilkan</strong>.</p>
+        </div>
+        <div class="flex justify-center">
+          <span class="text-gray-400 text-lg">↓</span>
+        </div>
+        <div class="step-card bg-amber-50 border-l-4 border-amber-400 rounded-r-xl px-4 py-3">
+          <p class="text-sm font-bold text-amber-800">Percobaan 2 — Soal Diacak</p>
+          <p class="text-xs text-amber-700 mt-1">Urutan soal <strong>diacak secara otomatis</strong> (Fisher-Yates shuffle). Setelah submit, <strong>kunci jawaban + pembahasan lengkap</strong> untuk semua 100 soal akan ditampilkan.</p>
+        </div>
+        <div class="flex justify-center">
+          <span class="text-gray-400 text-lg">↓</span>
+        </div>
+        <div class="step-card bg-green-50 border-l-4 border-green-400 rounded-r-xl px-4 py-3">
+          <p class="text-sm font-bold text-green-800">Nilai Akhir</p>
+          <p class="text-xs text-green-700 mt-1">Rata-rata dari Percobaan 1 dan Percobaan 2. Kode hasil terenkripsi akan muncul — <strong>salin dan kirimkan ke dosen</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Langkah-Langkah Pengerjaan -->
+    <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <span class="text-2xl">📋</span> Langkah-Langkah Pengerjaan
+      </h2>
+      <ol class="space-y-4">
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Isi Identitas</p>
+            <p class="text-xs text-gray-500 mt-0.5">Masukkan <strong>Nama Lengkap</strong> dan <strong>NRP</strong> (Nomor Registrasi Peserta) di bagian atas halaman. Identitas wajib diisi sebelum mengumpulkan jawaban.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Jawab Semua 100 Soal</p>
+            <p class="text-xs text-gray-500 mt-0.5">
+              <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span> — pilih satu opsi (A/B/C/D/E)<br>
+              <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium mt-1 inline-block">B/S</span> — pilih Benar atau Salah<br>
+              <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium mt-1 inline-block">Isian</span> — ketik jawaban singkat di kolom yang tersedia
+            </p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Kumpulkan Percobaan 1</p>
+            <p class="text-xs text-gray-500 mt-0.5">Klik tombol <strong>Kumpulkan Percobaan 1</strong> di bagian bawah. Sistem akan menghitung nilai dan menandai soal yang benar/salah. Kamu akan diminta melanjutkan ke Percobaan 2.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Kerjakan Percobaan 2</p>
+            <p class="text-xs text-gray-500 mt-0.5">Klik <strong>Mulai Percobaan 2</strong>. Soal muncul dalam urutan acak — jawab kembali semua soal dari awal. Manfaatkan hasil Percobaan 1 untuk memperbaiki jawaban.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center text-sm font-bold">5</span>
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Kumpulkan Percobaan 2 & Catat Nilai</p>
+            <p class="text-xs text-gray-500 mt-0.5">Setelah submit, nilai akhir dan kunci jawaban + pembahasan lengkap akan muncul. <strong>Segera screenshot atau salin Kode Hasil</strong> dan kirimkan ke dosen.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4. Cara Pengisian per Tipe Soal -->
+    <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <span class="text-2xl">✍️</span> Cara Pengisian per Tipe Soal
+      </h2>
+      <div class="space-y-4">
+        <div class="bg-blue-50 rounded-xl p-4">
+          <p class="text-sm font-bold text-blue-800 mb-1">
+            <span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium mr-2">PG</span>Pilihan Ganda
+          </p>
+          <p class="text-xs text-blue-700">Klik salah satu pilihan (A, B, C, D, atau E). Pilihan yang dipilih akan menjadi biru. Kamu bisa mengganti jawaban selama belum dikumpulkan.</p>
+        </div>
+        <div class="bg-yellow-50 rounded-xl p-4">
+          <p class="text-sm font-bold text-yellow-800 mb-1">
+            <span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium mr-2">B/S</span>Benar / Salah
+          </p>
+          <p class="text-xs text-yellow-700">Klik tombol <strong>Benar</strong> atau <strong>Salah</strong> sesuai penilaianmu terhadap pernyataan yang diberikan.</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4">
+          <p class="text-sm font-bold text-purple-800 mb-1">
+            <span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium mr-2">Isian</span>Isian Singkat
+          </p>
+          <p class="text-xs text-purple-700">Ketik jawaban singkat di kotak yang tersedia. Pengecekan otomatis <strong>tidak membedakan huruf besar/kecil</strong> (contoh: "Granit" = "granit"). Pastikan ejaan benar — variasi ejaan yang umum sudah diperhitungkan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Nilai & Kode Hasil -->
+    <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <span class="text-2xl">🏆</span> Nilai dan Kode Hasil
+      </h2>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+        <div class="bg-gray-50 rounded-xl p-4 space-y-2">
+          <p class="font-semibold text-gray-700">Cara penilaian:</p>
+          <ul class="text-xs text-gray-600 space-y-1 list-disc list-inside">
+            <li>Setiap soal bernilai 1 poin</li>
+            <li>Nilai = (benar ÷ 100) × 100</li>
+            <li>Nilai akhir = rata-rata Percobaan 1 + 2</li>
+            <li>Tidak ada pengurangan nilai untuk jawaban salah</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 space-y-2">
+          <p class="font-semibold text-gray-700">Kode Hasil:</p>
+          <ul class="text-xs text-gray-600 space-y-1 list-disc list-inside">
+            <li>Berisi: skor P1, skor P2, nilai akhir, nama, NRP</li>
+            <li>Muncul setelah Percobaan 2 selesai</li>
+            <li>Salin menggunakan tombol <strong>Salin</strong></li>
+            <li>Kirimkan ke dosen sebagai bukti pengerjaan</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Deadline -->
+    <section class="bg-red-50 border border-red-200 rounded-2xl p-6">
+      <h2 class="text-lg font-bold text-red-800 mb-3 flex items-center gap-2">
+        <span class="text-2xl">🔒</span> Deadline Pengerjaan
+      </h2>
+      <div class="flex items-center gap-4">
+        <div class="flex-1">
+          <p class="text-sm font-bold text-red-700">Minggu, 18 Oktober 2026 — pukul 23.00 WIB</p>
+          <p class="text-xs text-red-600 mt-1">Setelah deadline, halaman kuis akan terkunci dan tidak bisa diakses. Pastikan <strong>menyelesaikan kedua percobaan sebelum waktu habis</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Peringatan Penting -->
+    <section class="bg-amber-50 border border-amber-300 rounded-2xl p-6">
+      <h2 class="text-lg font-bold text-amber-800 mb-4 flex items-center gap-2">
+        <span class="text-2xl">⚠️</span> Peringatan Penting
+      </h2>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3">
+          <span class="text-amber-500 font-bold mt-0.5">📸</span>
+          <p class="text-xs text-amber-800"><strong>Screenshot nilai dan kode hasil</strong> segera setelah Percobaan 2 selesai. Nilai tidak disimpan di server — jika browser dibersihkan atau kamu ganti perangkat, data akan hilang.</p>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-500 font-bold mt-0.5">💻</span>
+          <p class="text-xs text-amber-800"><strong>Gunakan browser dan perangkat yang sama</strong> untuk kedua percobaan. Jika ganti browser atau perangkat, data Percobaan 1 tidak akan ditemukan dan kamu harus mulai dari awal.</p>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-500 font-bold mt-0.5">🌐</span>
+          <p class="text-xs text-amber-800"><strong>Jangan refresh atau tutup halaman</strong> di tengah pengerjaan. Jawaban tersimpan otomatis di browser, tapi untuk keamanan hindari menutup tab saat mengerjakan.</p>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-500 font-bold mt-0.5">🔁</span>
+          <p class="text-xs text-amber-800"><strong>Kedua percobaan wajib diselesaikan.</strong> Jika hanya mengerjakan satu percobaan, kode hasil tidak akan keluar dan nilai tidak dapat dikumpulkan ke dosen.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <div class="text-center py-4">
+      <p class="text-sm text-gray-500 mb-4">Sudah siap? Klik tombol di bawah untuk mulai mengerjakan.</p>
+      <a href="index.html"
+         class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-base px-8 py-4 rounded-2xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5 transform">
+        Mulai Kuis Geologi Fisik 2026 →
+      </a>
+      <p class="text-xs text-gray-400 mt-3">Pastikan kamu sudah membaca seluruh panduan di atas.</p>
+    </div>
+
+  </main>
+
+  <footer class="text-center text-gray-400 text-xs py-8 space-y-1">
+    <div>Geologi Fisik 2026 &middot; Panduan Pengerjaan</div>
+  </footer>
+
+</body>
+</html>
