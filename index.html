@@ -1143,7 +1143,8 @@ const answerKeys = {
 // ===================== RENDER =====================
 const sectionMap = { a: 'section-a', b: 'section-b', c: 'section-c', d: 'section-d', e: 'section-e', f: 'section-f' };
 
-function renderQuestion(q) {
+function renderQuestion(q, displayNo) {
+  if (displayNo === undefined) displayNo = q.no;
   const container = document.createElement('div');
   container.className = 'question-card bg-white rounded-xl shadow-sm border border-gray-100 p-5';
   container.id = `q${q.no}`;
@@ -1190,7 +1191,7 @@ function renderQuestion(q) {
   container.innerHTML = `
     <div class="flex items-start justify-between gap-2 mb-2">
       <div class="flex items-center gap-2">
-        <span class="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white text-sm font-bold">${q.no}</span>
+        <span class="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white text-sm font-bold">${displayNo}</span>
         <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${badgeClass}">${badgeLabel}</span>
       </div>
       <span id="q${q.no}_status" class="text-xs font-medium text-gray-400">Belum dijawab</span>
@@ -1533,8 +1534,8 @@ function startAttempt2() {
   // Render soal acak
   const container = document.getElementById('section-all');
   container.innerHTML = '';
-  shuffledQuestions.forEach(q => {
-    const el = renderQuestion(q);
+  shuffledQuestions.forEach((q, idx) => {
+    const el = renderQuestion(q, idx + 1);
     container.appendChild(el);
   });
 
