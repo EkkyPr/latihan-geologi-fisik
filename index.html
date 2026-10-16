@@ -47,6 +47,8 @@
     }
 
     .locked { pointer-events: none; opacity: 0.85; }
+    /* Result card dan tombol Percobaan 2 harus tetap bisa diklik meski form terkunci */
+    #result-card, #result-card *, #start-attempt2-section, #start-attempt2-section * { pointer-events: auto !important; }
 
     #submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
