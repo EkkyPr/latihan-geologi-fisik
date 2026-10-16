@@ -1813,10 +1813,8 @@ submitBtn.addEventListener('click', () => {
 
     const grade1 = gradeAnswers(answers, qList);
     localStorage.setItem('geofis_skor1', JSON.stringify(grade1));
-    markUI(answers, qList, true);
+    markUI(answers, qList, false);
     showResultAttempt1(grade1);
-    // Tampilkan kunci jawaban langsung setelah Percobaan 1 (ini latihan, bukan tes)
-    setTimeout(() => renderAnswerKey(answers), 900);
 
   } else {
     localStorage.setItem('geofis_submitted_2', 'true');
@@ -1917,11 +1915,9 @@ window.addEventListener('DOMContentLoaded', () => {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Percobaan 1 Selesai';
 
-    markUI(answers1, questions, true);
+    markUI(answers1, questions, false);
     showResultAttempt1(grade1);
     updateAttemptUI(1);
-    // Tampilkan kunci jawaban saat restore attempt 1
-    setTimeout(() => renderAnswerKey(answers1), 900);
 
   } else {
     // Belum ada percobaan — fresh start
