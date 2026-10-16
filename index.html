@@ -74,12 +74,12 @@
   <!-- Sticky Progress Header -->
   <div id="sticky-header" class="py-3 px-4 shadow-sm">
     <div class="max-w-3xl mx-auto flex items-center justify-between gap-4">
-      <span class="text-sm font-semibold text-gray-700">Geologi Fisik 2026 — 50 Soal</span>
+      <span class="text-sm font-semibold text-gray-700">Geologi Fisik 2026 — 100 Soal</span>
       <span id="attempt-header-badge" class="text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">Percobaan 1/2</span>
       <div class="flex-1 max-w-xs">
         <div class="flex justify-between text-xs text-gray-500 mb-1">
           <span>Progres</span>
-          <span><span id="answered-count">0</span>/50</span>
+          <span><span id="answered-count">0</span>/100</span>
         </div>
         <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
           <div id="progress-bar" class="progress-bar-fill h-2 bg-indigo-500 rounded-full" style="width:0%"></div>
@@ -93,11 +93,11 @@
   <div class="section-header text-white py-10 px-4">
     <div class="max-w-3xl mx-auto">
       <h1 class="text-2xl md:text-3xl font-bold mb-2">Geologi Fisik 2026</h1>
-      <p class="text-blue-200 text-sm md:text-base">50 Soal · Tektonik Lempeng · Siklus Batuan · Batuan Beku</p>
+      <p class="text-blue-200 text-sm md:text-base">100 Soal · Tektonik Lempeng · Siklus Batuan · Batuan Beku · Pelapukan · Batuan Sedimen · Pertambangan</p>
       <div class="mt-4 flex flex-wrap gap-3 text-xs">
-        <span class="bg-white/20 px-3 py-1 rounded-full">25 Pilihan Ganda</span>
-        <span class="bg-white/20 px-3 py-1 rounded-full">10 Benar/Salah</span>
-        <span class="bg-white/20 px-3 py-1 rounded-full">15 Isian</span>
+        <span class="bg-white/20 px-3 py-1 rounded-full">51 Pilihan Ganda</span>
+        <span class="bg-white/20 px-3 py-1 rounded-full">19 Benar/Salah</span>
+        <span class="bg-white/20 px-3 py-1 rounded-full">30 Isian</span>
         <span class="bg-yellow-400/90 text-yellow-900 px-3 py-1 rounded-full font-semibold">⚠ 2× Percobaan Wajib</span>
         <span id="attempt-hero-badge" class="bg-white/20 px-3 py-1 rounded-full text-sm">Percobaan 1 dari 2</span>
       </div>
@@ -173,13 +173,34 @@
       </div>
       <div class="space-y-5" id="section-c"></div>
     </section>
+    <section>
+      <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
+        <h2 class="text-lg font-bold">Bagian D: Pelapukan dan Regolith</h2>
+        <p class="text-blue-200 text-sm">Soal 51–62</p>
+      </div>
+      <div class="space-y-5" id="section-d"></div>
+    </section>
+    <section>
+      <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
+        <h2 class="text-lg font-bold">Bagian E: Batuan Sedimen</h2>
+        <p class="text-blue-200 text-sm">Soal 63–86</p>
+      </div>
+      <div class="space-y-5" id="section-e"></div>
+    </section>
+    <section>
+      <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
+        <h2 class="text-lg font-bold">Bagian F: Geologi dalam Pertambangan</h2>
+        <p class="text-blue-200 text-sm">Soal 87–100</p>
+      </div>
+      <div class="space-y-5" id="section-f"></div>
+    </section>
     </div><!-- /#sections-abc -->
 
     <!-- SECTION Percobaan 2 (Soal Diacak) -->
     <div id="attempt2-section" class="hidden">
       <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
         <h2 class="text-lg font-bold">Percobaan ke-2 — Soal Diacak</h2>
-        <p class="text-blue-200 text-sm">50 Soal · urutan acak (Fisher-Yates)</p>
+        <p class="text-blue-200 text-sm">100 Soal · urutan acak (Fisher-Yates)</p>
       </div>
       <div class="space-y-5" id="section-all"></div>
     </div>
@@ -597,6 +618,405 @@ const questions = [
     no: 50, section: 'c', type: 'bs',
     text: 'Magma mafik lebih kental dibanding magma felsik.',
     answer: 'Salah'
+  },
+
+  // ===== BAGIAN D: PELAPUKAN DAN REGOLITH =====
+  {
+    no: 51, section: 'd', type: 'pg',
+    text: 'Pelapukan fisik (mekanik) berbeda dari pelapukan kimia karena pelapukan fisik...',
+    options: [
+      'mengubah komposisi kimia mineral batuan',
+      'hanya memecah batuan tanpa mengubah komposisi mineralnya',
+      'selalu memerlukan air sebagai medium utama'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 52, section: 'd', type: 'pg',
+    text: 'Proses pelapukan mekanik yang terjadi ketika air masuk ke celah batuan, membeku, mengembang, lalu mencair kembali sehingga batuan terbelah disebut...',
+    options: [
+      'eksfoliasi termal',
+      'frost wedging (pembekuan-pencairan)',
+      'karbonasi'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 53, section: 'd', type: 'pg',
+    text: 'Di antara batuan berikut, yang paling mudah terlapuk secara kimia oleh air hujan yang mengandung CO₂ adalah...',
+    options: [
+      'granit',
+      'kuarsit',
+      'batugamping'
+    ],
+    answer: 'C'
+  },
+  {
+    no: 54, section: 'd', type: 'bs',
+    text: 'Regolith mencakup seluruh material tidak terkonsolidasi di atas batuan segar, termasuk tanah, saprolit, dan fragmen batuan hasil pelapukan.',
+    answer: 'Benar'
+  },
+  {
+    no: 55, section: 'd', type: 'is',
+    text: 'Reaksi kimia antara mineral silikat dengan air yang menghasilkan mineral lempung (misalnya kaolinit) dan melepaskan ion ke dalam larutan disebut...',
+    hint: 'nama proses pelapukan kimia...',
+    answer: 'hidrolisis'
+  },
+  {
+    no: 56, section: 'd', type: 'pg',
+    text: 'Pelapukan mekanik yang menyebabkan batuan terkelupas secara konsentris akibat penurunan tekanan ketika lapisan di atasnya tererosi disebut...',
+    options: [
+      'spalling',
+      'eksfoliasi (pressure release)',
+      'granulasi'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 57, section: 'd', type: 'is',
+    text: 'Lapisan dalam profil pelapukan tropis yang masih memperlihatkan struktur dan tekstur batuan aslinya, namun mineralnya telah terubah menjadi lempung secara intensif, disebut...',
+    hint: 'lapisan antara tanah dan batuan segar...',
+    answer: 'saprolit'
+  },
+  {
+    no: 58, section: 'd', type: 'pg',
+    text: 'Faktor lingkungan yang paling signifikan mempercepat laju pelapukan kimia di daerah tropis adalah...',
+    options: [
+      'topografi yang sangat curam',
+      'suhu tinggi dan curah hujan melimpah sepanjang tahun',
+      'batuan berbutir sangat kasar'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 59, section: 'd', type: 'bs',
+    text: 'Saprolit terbentuk terutama melalui pelapukan fisik sehingga mineral-mineral penyusunnya tidak mengalami perubahan kimiawi.',
+    answer: 'Salah'
+  },
+  {
+    no: 60, section: 'd', type: 'is',
+    text: 'Pada profil tanah residual daerah tropis, lapisan yang terletak di antara tanah matang (solum) di atas dan batuan segar (bedrock) di bawah, serta masih memperlihatkan pola struktur batuan induk, disebut...',
+    hint: 'lapisan dalam profil pelapukan...',
+    answer: 'saprolit'
+  },
+  {
+    no: 61, section: 'd', type: 'pg',
+    text: 'Pelapukan kimia yang melibatkan penambahan molekul air ke dalam kisi kristal mineral (tanpa melarutkannya) sehingga mineral mengembang dan menjadi kurang stabil disebut...',
+    options: [
+      'hidrolisis',
+      'hidrasi',
+      'karbonasi'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 62, section: 'd', type: 'is',
+    text: 'Selain pelapukan fisik dan kimia, terdapat jenis pelapukan yang disebabkan oleh aktivitas organisme hidup seperti akar pohon, lumut kerak (lichen), bakteri, dan jamur. Jenis pelapukan ini disebut pelapukan...',
+    hint: 'pelapukan oleh makhluk hidup...',
+    answer: 'biologis'
+  },
+  // ===== BAGIAN E: BATUAN SEDIMEN =====
+  {
+    no: 63, section: 'e', type: 'pg',
+    text: 'Batuan sedimen klastik diklasifikasikan terutama berdasarkan...',
+    options: [
+      'komposisi kimia mineral penyusunnya',
+      'ukuran butir fragmen penyusunnya',
+      'warna dan kilap permukaan batuan'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 64, section: 'e', type: 'pg',
+    text: 'Proses yang mengubah sedimen lepas menjadi batuan sedimen padat melalui kompaksi dan sementasi disebut...',
+    options: [
+      'metamorfisme',
+      'litifikasi',
+      'diagenesis awal saja'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 65, section: 'e', type: 'pg',
+    text: 'Batuan sedimen organik yang terbentuk dari akumulasi sisa-sisa tumbuhan yang kaya karbon dan mengalami pemadatan serta perubahan kimia adalah...',
+    options: [
+      'evaporit',
+      'batubara',
+      'rijang (chert)'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 66, section: 'e', type: 'is',
+    text: 'Batuan sedimen klastik yang tersusun dari fragmen berukuran lebih dari 2 mm dengan bentuk menyudut tajam yang terikat oleh semen disebut...',
+    hint: 'nama batuan sedimen fragmen menyudut...',
+    answer: 'breksi'
+  },
+  {
+    no: 67, section: 'e', type: 'bs',
+    text: 'Evaporit adalah batuan sedimen yang terbentuk melalui penguapan air laut atau danau garam yang meninggalkan endapan mineral seperti halit dan gipsum.',
+    answer: 'Benar'
+  },
+  {
+    no: 68, section: 'e', type: 'bs',
+    text: 'Batubara termasuk kelompok batuan sedimen kimia yang terbentuk dari reaksi kimia antara air dan karbon dioksida di dasar laut.',
+    answer: 'Salah'
+  },
+  {
+    no: 69, section: 'e', type: 'pg',
+    text: 'Batuan sedimen klastik yang tersusun dari butiran berukuran 0,0625–2 mm (skala Wentworth) dan terikat semen disebut...',
+    options: [
+      'batulempung',
+      'batupasir',
+      'konglomerat'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 70, section: 'e', type: 'is',
+    text: 'Agar suatu batuan dapat berfungsi sebagai batuan reservoir minyak dan gas bumi, batuan tersebut harus memiliki nilai porositas dan permeabilitas yang...',
+    hint: 'kondisi porositas dan permeabilitas yang diperlukan...',
+    answer: 'baik'
+  },
+  {
+    no: 71, section: 'e', type: 'pg',
+    text: 'Mineral semen yang paling umum ditemukan mengikat butiran pada batupasir adalah...',
+    options: [
+      'anhidrit',
+      'kalsit dan silika',
+      'dolomit'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 72, section: 'e', type: 'pg',
+    text: 'Struktur sedimen yang dicirikan oleh penurunan ukuran butir secara gradual dari bawah (kasar) ke atas (halus) dalam satu lapisan disebut...',
+    options: [
+      'graded bedding normal',
+      'cross-bedding',
+      'laminasi paralel'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 73, section: 'e', type: 'is',
+    text: 'Menurut skala Wentworth, sedimen berukuran 0,0625–2 mm dimasukkan ke dalam kelas ukuran butir...',
+    hint: 'kelas ukuran butir sedimen...',
+    answer: 'pasir'
+  },
+  {
+    no: 74, section: 'e', type: 'pg',
+    text: 'Batuan sedimen karbonat yang terbentuk dari akumulasi cangkang dan kerangka organisme laut (biokimia) disebut...',
+    options: [
+      'dolomit',
+      'batugamping (limestone)',
+      'rijang'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 75, section: 'e', type: 'pg',
+    text: 'Struktur perlapisan miring yang terbentuk akibat pengendapan oleh arus searah (fluvial atau eolian) disebut...',
+    options: [
+      'graded bedding',
+      'parallel bedding',
+      'cross-bedding'
+    ],
+    answer: 'C'
+  },
+  {
+    no: 76, section: 'e', type: 'bs',
+    text: 'Rijang (chert) adalah batuan sedimen silika mikrokristal yang dapat terbentuk secara biogenik dari akumulasi cangkang radiolaria atau diatom di dasar laut.',
+    answer: 'Benar'
+  },
+  {
+    no: 77, section: 'e', type: 'pg',
+    text: 'Batuan sedimen non-klastik yang terbentuk dari penguapan larutan garam jenuh dan pengendapan mineral garam dikelompokkan sebagai batuan sedimen...',
+    options: [
+      'organik',
+      'kimia',
+      'klastik'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 78, section: 'e', type: 'is',
+    text: 'Mineral dengan rumus kimia NaCl yang merupakan komponen utama batuan garam (rock salt) hasil evaporasi disebut...',
+    hint: 'nama mineral garam dapur...',
+    answer: 'halit'
+  },
+  {
+    no: 79, section: 'e', type: 'pg',
+    text: 'Batuan sedimen yang diendapkan oleh arus turbid di dasar laut dalam dan umumnya memperlihatkan sekuen Bouma disebut...',
+    options: [
+      'turbidit',
+      'wacke',
+      'calcilutit'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 80, section: 'e', type: 'is',
+    text: 'Batubara dengan tingkat pembatubaraan (rank) menengah, kadar karbon sekitar 45–86%, dan nilai kalori cukup tinggi disebut batubara...',
+    hint: 'rank batubara menengah...',
+    answer: 'bituminus'
+  },
+  {
+    no: 81, section: 'e', type: 'pg',
+    text: 'Batuan sedimen klastik berbutir sangat halus (<0,004 mm) dengan permeabilitas sangat rendah yang sering menjadi batuan penutup (cap rock) adalah...',
+    options: [
+      'batulanau',
+      'batulempung',
+      'wacke'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 82, section: 'e', type: 'pg',
+    text: 'Porositas primer pada batuan sedimen adalah porositas yang terbentuk...',
+    options: [
+      'pada saat proses pengendapan sedimen berlangsung',
+      'setelah batuan terbentuk akibat proses pelarutan',
+      'oleh retakan dan patahan tektonik'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 83, section: 'e', type: 'bs',
+    text: 'Analisis fasies sedimen memungkinkan ahli geologi merekonstruksi lingkungan pengendapan purba (paleolingkungan) berdasarkan karakteristik fisik, kimia, dan biologi batuan sedimen.',
+    answer: 'Benar'
+  },
+  {
+    no: 84, section: 'e', type: 'pg',
+    text: 'Batupasir yang memiliki indeks kematangan komposisional tinggi umumnya didominasi oleh mineral...',
+    options: [
+      'kuarsa (quartz arenite)',
+      'feldspar',
+      'mika'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 85, section: 'e', type: 'is',
+    text: 'Proses penurunan volume pori pada sedimen akibat beban batuan di atasnya yang menekan dan merapatkan butiran satu sama lain disebut...',
+    hint: 'bagian dari proses litifikasi...',
+    answer: 'kompaksi'
+  },
+  {
+    no: 86, section: 'e', type: 'bs',
+    text: 'Karakteristik batuan sedimen seperti ukuran butir, sortasi, dan struktur sedimen dapat digunakan untuk memperkirakan tingkat energi lingkungan pengendapan.',
+    answer: 'Benar'
+  },
+  // ===== BAGIAN F: GEOLOGI DALAM PERTAMBANGAN =====
+  {
+    no: 87, section: 'f', type: 'pg',
+    text: 'Bagian dari sumber daya mineral yang telah memenuhi syarat teknis dan ekonomis untuk ditambang pada kondisi saat ini disebut...',
+    options: [
+      'sumber daya tereka (inferred resource)',
+      'cadangan (reserve)',
+      'sumber daya terindikasi (indicated resource)'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 88, section: 'f', type: 'pg',
+    text: 'Penambangan yang dilakukan dengan membuat terowongan, shaft, atau drift di bawah permukaan tanah disebut tambang...',
+    options: [
+      'bawah tanah (underground mining)',
+      'terbuka (open pit mining)',
+      'semprot (hydraulic mining)'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 89, section: 'f', type: 'is',
+    text: 'Sumber daya mineral yang secara ekonomis layak dan secara teknis dapat ditambang pada kondisi saat ini, dengan tingkat keyakinan geologi paling tinggi, disebut...',
+    hint: 'istilah untuk mineral yang siap ditambang...',
+    answer: 'cadangan'
+  },
+  {
+    no: 90, section: 'f', type: 'pg',
+    text: 'Perbandingan volume (atau massa) tanah penutup (overburden) yang harus dipindahkan untuk memperoleh satu satuan volume (atau massa) bijih disebut...',
+    options: [
+      'recovery factor',
+      'stripping ratio',
+      'dilution factor'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 91, section: 'f', type: 'bs',
+    text: 'Keberadaan sesar dan lipatan dalam suatu wilayah dapat mengontrol distribusi dan konsentrasi endapan bijih, sehingga pemetaan geologi struktur sangat penting dalam eksplorasi mineral.',
+    answer: 'Benar'
+  },
+  {
+    no: 92, section: 'f', type: 'pg',
+    text: 'Metode eksplorasi geofisika yang mengukur variasi medan gravitasi di permukaan bumi untuk mendeteksi kontras densitas batuan bawah permukaan disebut survei...',
+    options: [
+      'gravitasi',
+      'seismik refleksi',
+      'magnetik'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 93, section: 'f', type: 'is',
+    text: 'Konsentrasi suatu logam atau mineral berharga di dalam bijih, yang biasanya dinyatakan dalam gram per ton (g/t) atau persen (%), disebut...',
+    hint: 'konsentrasi logam dalam bijih...',
+    answer: 'kadar'
+  },
+  {
+    no: 94, section: 'f', type: 'is',
+    text: 'Sebuah tambang emas memiliki cadangan bijih sebesar 3.000.000 ton dengan kadar emas rata-rata 1,4 gram/ton. Hitunglah total kandungan emas dalam deposit tersebut dalam satuan gram!',
+    hint: 'masukkan angka saja (gram)...',
+    answer: '4200000'
+  },
+  {
+    no: 95, section: 'f', type: 'is',
+    text: 'Sebuah deposit tembaga memiliki tonase bijih sebesar 4.200 ton dengan kadar tembaga 0,2%. Berapa kilogram tembaga yang terkandung dalam deposit tersebut?',
+    hint: 'masukkan angka saja (kg)...',
+    answer: '8400'
+  },
+  {
+    no: 96, section: 'f', type: 'is',
+    text: 'Suatu tambang terbuka memiliki volume tanah penutup (overburden) sebesar 10.000.000 m³ dan volume bijih sebesar 2.000.000 m³. Berapakah nilai stripping ratio tambang tersebut?',
+    hint: 'masukkan angka saja...',
+    answer: '5'
+  },
+  {
+    no: 97, section: 'f', type: 'pg',
+    text: 'Metode pengolahan bijih emas yang menggunakan larutan natrium sianida (NaCN) untuk melarutkan emas dari material bijihnya disebut...',
+    options: [
+      'sianidasi',
+      'flotasi',
+      'amalgamasi'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 98, section: 'f', type: 'pg',
+    text: 'Dokumen kajian lingkungan yang wajib dimiliki sebelum kegiatan pertambangan berskala besar dimulai di Indonesia adalah...',
+    options: [
+      'AMDAL (Analisis Mengenai Dampak Lingkungan)',
+      'RKL-RPL tanpa AMDAL',
+      'UKL-UPL'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 99, section: 'f', type: 'bs',
+    text: 'Semua mineral logam yang ditemukan di kerak bumi dapat langsung ditambang tanpa perlu mempertimbangkan kadar ambang batas (cut-off grade) ekonomis.',
+    answer: 'Salah'
+  },
+  {
+    no: 100, section: 'f', type: 'pg',
+    text: 'Dalam sistem klasifikasi sumber daya mineral, "sumber daya terukur" (measured resource) memiliki tingkat keyakinan geologi...',
+    options: [
+      'paling tinggi di antara semua kategori sumber daya',
+      'lebih rendah dari sumber daya terindikasi',
+      'setara dengan sumber daya tereka'
+    ],
+    answer: 'A'
   }
 ];
 
@@ -651,11 +1071,61 @@ const answerKeys = {
   47: 'Dike (retas) – Dike memotong perlapisan; sill sejajar perlapisan.',
   48: 'B – Plagioklas dominan + hornblenda + sedikit kuarsa, faneritik → diorit.',
   49: '13% – 100 − (28+32+27) = 13.',
-  50: 'Salah – Magma felsik lebih kental; magma mafik lebih encer.'
+  50: 'Salah – Magma felsik lebih kental; magma mafik lebih encer.',
+  51: 'B – Pelapukan fisik hanya memecah batuan secara mekanik tanpa mengubah komposisi mineral.',
+  52: 'B – Frost wedging: air membeku di celah → mengembang → batuan terbelah.',
+  53: 'C – Batugamping (CaCO₃) mudah larut dalam air hujan yang mengandung asam karbonat.',
+  54: 'Benar – Regolith = semua material tidak terkonsolidasi di atas batuan segar.',
+  55: 'Hidrolisis – Air bereaksi dengan silikat → mineral lempung + ion terlarut.',
+  56: 'B – Eksfoliasi (pressure release): batuan terkelupas konsentris akibat pelepasan tekanan.',
+  57: 'Saprolit – Lapisan terlapuk intensif namun struktur batuan asli masih terawetkan.',
+  58: 'B – Suhu tinggi + curah hujan tinggi → reaksi kimia lebih cepat di tropika.',
+  59: 'Salah – Saprolit terbentuk dari pelapukan kimia intensif, bukan fisik.',
+  60: 'Saprolit – Terletak antara solum tanah di atas dan bedrock di bawah, struktur asli terawetkan.',
+  61: 'B – Hidrasi: penambahan H₂O ke kisi mineral → mineral mengembang.',
+  62: 'Biologis – Pelapukan oleh organisme hidup (akar, lichen, bakteri, jamur).',
+  63: 'B – Batuan sedimen klastik diklasifikasi berdasarkan ukuran butir (skala Wentworth).',
+  64: 'B – Litifikasi = kompaksi + sementasi, mengubah sedimen lepas menjadi batuan padat.',
+  65: 'B – Batubara terbentuk dari akumulasi sisa tumbuhan (organik), bukan kimia.',
+  66: 'Breksi – Fragmen menyudut >2 mm yang terikat semen = breksi.',
+  67: 'Benar – Evaporit terbentuk dari penguapan larutan garam → halit, gipsum, anhidrit.',
+  68: 'Salah – Batubara adalah batuan sedimen organik (dari sisa tumbuhan), bukan kimia.',
+  69: 'B – Butiran 0,0625–2 mm = ukuran pasir → batupasir.',
+  70: 'Baik – Batuan reservoir harus memiliki porositas dan permeabilitas tinggi/baik.',
+  71: 'B – Kalsit (CaCO₃) dan silika (SiO₂) adalah semen paling umum pada batupasir.',
+  72: 'A – Graded bedding normal: butiran mengecil dari bawah ke atas dalam satu lapisan.',
+  73: 'Pasir – Skala Wentworth: 0,0625–2 mm = kelas pasir.',
+  74: 'B – Batugamping terumbu terbentuk dari akumulasi cangkang dan kerangka organisme laut.',
+  75: 'C – Cross-bedding terbentuk dari pengendapan oleh arus searah (sungai atau angin).',
+  76: 'Benar – Chert/rijang dapat terbentuk dari akumulasi biogenik radiolaria atau diatom.',
+  77: 'B – Evaporit = batuan sedimen kimia yang terbentuk dari penguapan larutan garam.',
+  78: 'Halit – NaCl = halit, komponen utama batuan garam (rock salt).',
+  79: 'A – Turbidit diendapkan oleh arus turbid dan memperlihatkan sekuen Bouma.',
+  80: 'Bituminus – Batubara rank menengah dengan kadar karbon 45–86%.',
+  81: 'B – Batulempung berbutir <0,004 mm, permeabilitas sangat rendah → cap rock.',
+  82: 'A – Porositas primer terbentuk saat pengendapan berlangsung (antarbutir).',
+  83: 'Benar – Analisis fasies sedimen digunakan untuk merekonstruksi paleolingkungan.',
+  84: 'A – Kematangan tinggi → butiran sudah ter-sortasi, dominasi kuarsa resisten.',
+  85: 'Kompaksi – Beban sedimen di atas menekan dan merapatkan butiran → pori berkurang.',
+  86: 'Benar – Ukuran butir & struktur sedimen mencerminkan energi lingkungan pengendapan.',
+  87: 'B – Cadangan (reserve) = bagian sumber daya yang layak ditambang secara teknis & ekonomis.',
+  88: 'A – Tambang bawah tanah: terowongan/shaft di bawah permukaan tanah.',
+  89: 'Cadangan – Bagian sumber daya mineral yang siap ditambang dengan kepercayaan geologi tertinggi.',
+  90: 'B – Stripping ratio = volume overburden / volume bijih.',
+  91: 'Benar – Sesar dan lipatan mengontrol distribusi bijih; pemetaan struktur krusial dalam eksplorasi.',
+  92: 'A – Survei gravitasi mengukur variasi gaya gravitasi akibat kontras densitas batuan.',
+  93: 'Kadar – Konsentrasi logam dalam bijih dinyatakan g/t atau % = kadar.',
+  94: '4.200.000 gram – 3.000.000 t × 1,4 g/t = 4.200.000 g',
+  95: '8.400 kg – 4.200 t × 0,2% = 4.200 × 0,002 t = 8,4 t = 8.400 kg',
+  96: '5 – SR = 10.000.000 m³ ÷ 2.000.000 m³ = 5',
+  97: 'A – Sianidasi menggunakan NaCN untuk melarutkan emas dari bijih.',
+  98: 'A – AMDAL wajib dimiliki sebelum kegiatan pertambangan berskala besar di Indonesia.',
+  99: 'Salah – Kadar ambang batas (cut-off grade) menentukan kelayakan ekonomis penambangan.',
+  100: 'A – Measured resource memiliki tingkat keyakinan geologi paling tinggi di antara semua kategori.'
 };
 
 // ===================== RENDER =====================
-const sectionMap = { a: 'section-a', b: 'section-b', c: 'section-c' };
+const sectionMap = { a: 'section-a', b: 'section-b', c: 'section-c', d: 'section-d', e: 'section-e', f: 'section-f' };
 
 function renderQuestion(q) {
   const container = document.createElement('div');
@@ -732,7 +1202,7 @@ function updateProgress() {
   const el = document.getElementById('answered-count');
   const pb = document.getElementById('progress-bar');
   if (el) el.textContent = count;
-  if (pb) pb.style.width = `${(count/50)*100}%`;
+  if (pb) pb.style.width = `${(count/100)*100}%`;
 }
 
 function updateAttemptUI(attempt) {
@@ -820,6 +1290,11 @@ function checkIsin(userVal, correctVal, q) {
   if (q.no === 13) return u.includes('31') && u.includes('sedang');
   if (q.no === 47) { const raw = userVal.toLowerCase().trim(); return raw.includes('dike') || raw.includes('retas'); }
   if (q.no === 24) { const raw = userVal.toLowerCase().trim(); return raw.includes('sabak') || raw.includes('slate'); }
+  if (q.no === 62) { const raw = userVal.toLowerCase().trim(); return raw.includes('biologi') || raw.includes('organik'); }
+  if (q.no === 70) { const raw = userVal.toLowerCase().trim(); return raw.includes('baik') || raw.includes('tinggi'); }
+  if (q.no === 94) { return userVal.replace(/\D/g, '') === '4200000'; }
+  if (q.no === 95) { return userVal.replace(/\D/g, '') === '8400'; }
+  if (q.no === 96) { return userVal.replace(/\D/g, '') === '5'; }
   return parts.every(p => u.includes(p));
 }
 
@@ -851,7 +1326,7 @@ function gradeAnswers(answers, qList) {
     else ok = checkIsin(ua, q.answer, q);
     if (ok) correct++; else wrong++;
   });
-  return { correct, wrong, empty, pct: Math.round((correct / 50) * 100) };
+  return { correct, wrong, empty, pct: Math.round((correct / 100) * 100) };
 }
 
 function markUI(answers, qList, showKey) {
@@ -912,7 +1387,7 @@ function markUI(answers, qList, showKey) {
 
 function showResultAttempt1(grade) {
   document.getElementById('result-score').textContent  = `${grade.pct} / 100`;
-  document.getElementById('result-detail').textContent = `${grade.correct} benar dari 50 soal`;
+  document.getElementById('result-detail').textContent = `${grade.correct} benar dari 100 soal`;
   document.getElementById('res-correct').textContent   = grade.correct;
   document.getElementById('res-wrong').textContent     = grade.wrong;
   document.getElementById('res-empty').textContent     = grade.empty;
@@ -1017,7 +1492,7 @@ function startAttempt2() {
   shuffledQuestions = shuffleOrder.map(no => questions.find(q => q.no === no));
 
   // Kosongkan soal Percobaan 1
-  ['section-a', 'section-b', 'section-c'].forEach(id => {
+  ['section-a', 'section-b', 'section-c', 'section-d', 'section-e', 'section-f'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = '';
   });
@@ -1163,7 +1638,57 @@ const PEMBAHASAN = {
   47: { jawaban: 'Dike (retas)', teks: 'Dike memotong perlapisan batuan; sill sejajar perlapisan.' },
   48: { jawaban: 'B', teks: 'Plagioklas dominan + hornblenda + sedikit kuarsa, faneritik → diorit.' },
   49: { jawaban: '13%', teks: '100 − (28 + 32 + 27) = 13%' },
-  50: { jawaban: 'Salah', teks: 'Magma felsik lebih kental; magma mafik lebih encer karena kadar silika rendah.' }
+  50: { jawaban: 'Salah', teks: 'Magma felsik lebih kental; magma mafik lebih encer karena kadar silika rendah.' },
+  51: { jawaban: 'B', teks: 'Pelapukan fisik hanya memecah/membelah batuan tanpa mengubah komposisi mineralnya.' },
+  52: { jawaban: 'B', teks: 'Frost wedging: air masuk ke celah → membeku dan mengembang → batuan terbelah.' },
+  53: { jawaban: 'C', teks: 'Batugamping (CaCO₃) mudah larut dalam air hujan yang mengandung asam karbonat (H₂CO₃).' },
+  54: { jawaban: 'Benar', teks: 'Regolith = semua material tidak terkonsolidasi di atas batuan segar termasuk tanah dan saprolit.' },
+  55: { jawaban: 'Hidrolisis', teks: 'Hidrolisis: feldspar + air → mineral lempung (kaolinit) + ion K⁺, Ca²⁺, Si(OH)₄ terlarut.' },
+  56: { jawaban: 'B', teks: 'Eksfoliasi (pressure release): lapisan di atas tererosi → tekanan berkurang → batuan mengembang dan terkelupas.' },
+  57: { jawaban: 'Saprolit', teks: 'Saprolit mempertahankan struktur batuan asli tetapi mineralnya telah terubah jadi lempung oleh pelapukan kimia intensif.' },
+  58: { jawaban: 'B', teks: 'Di daerah tropis: suhu tinggi mempercepat reaksi kimia; curah hujan melimpah menyediakan air → laju pelapukan kimia tertinggi.' },
+  59: { jawaban: 'Salah', teks: 'Saprolit justru terbentuk dari pelapukan kimia intensif; mineral-mineralnya telah berubah menjadi lempung.' },
+  60: { jawaban: 'Saprolit', teks: 'Profil pelapukan: tanah (solum) → saprolit (struktur terawetkan, mineral terubah) → batuan segar (bedrock).' },
+  61: { jawaban: 'B', teks: 'Hidrasi: H₂O masuk ke kisi kristal mineral (misal: anhydrit → gipsum) tanpa melarutkan, menyebabkan pengembangan volume.' },
+  62: { jawaban: 'Biologis', teks: 'Pelapukan biologis/organik disebabkan oleh makhluk hidup: akar pohon (fisik), lumut dan bakteri (kimia organik).' },
+  63: { jawaban: 'B', teks: 'Batuan sedimen klastik diklasifikasi berdasarkan ukuran butir: konglomerat/breksi (>2mm), batupasir (0,0625–2mm), lanau, lempung.' },
+  64: { jawaban: 'B', teks: 'Litifikasi = proses kompaksi (pemadatan) + sementasi (pengisian pori oleh mineral semen).' },
+  65: { jawaban: 'B', teks: 'Batubara adalah batuan sedimen organik dari akumulasi sisa tumbuhan yang terkubur dan mengalami pembatubaraan.' },
+  66: { jawaban: 'Breksi', teks: 'Breksi: fragmen menyudut (angular) berukuran >2 mm → menunjukkan tidak ada transportasi jauh.' },
+  67: { jawaban: 'Benar', teks: 'Evaporit terbentuk ketika air laut/danau menguap, meningkatkan salinitas hingga mineral-mineral mengendap: halit, gipsum, anhidrit.' },
+  68: { jawaban: 'Salah', teks: 'Batubara adalah batuan sedimen organik dari sisa tumbuhan, bukan hasil reaksi kimia CO₂ dan air di laut.' },
+  69: { jawaban: 'B', teks: 'Skala Wentworth: 0,0625–2 mm = pasir → batuan sedimen klastiknya = batupasir.' },
+  70: { jawaban: 'Baik', teks: 'Batuan reservoir harus berpori (porositas tinggi) dan memungkinkan aliran fluida (permeabilitas tinggi/baik).' },
+  71: { jawaban: 'B', teks: 'Semen kalsit (CaCO₃) dan silika (SiO₂/kuarsa sekunder) adalah semen paling umum pada batupasir.' },
+  72: { jawaban: 'A', teks: 'Graded bedding normal: butiran mengecil dari bawah ke atas, khas pada endapan arus turbid yang melambat.' },
+  73: { jawaban: 'Pasir', teks: 'Skala Wentworth: lempung <0,004 mm | lanau 0,004–0,0625 mm | pasir 0,0625–2 mm | kerikil 2–64 mm.' },
+  74: { jawaban: 'B', teks: 'Batugamping terumbu (reef limestone) terbentuk dari akumulasi biokimia cangkang koral, moluska, dan alga berkapur.' },
+  75: { jawaban: 'C', teks: 'Cross-bedding (perlapisan silang-siur) terbentuk dari migrasi bedform (ripple/dune) oleh arus searah di sungai atau gurun.' },
+  76: { jawaban: 'Benar', teks: 'Chert/rijang biogenik terbentuk dari akumulasi silika cangkang radiolaria (laut dalam) atau diatom (air tawar/laut dangkal).' },
+  77: { jawaban: 'B', teks: 'Evaporit = batuan sedimen kimia; terbentuk dari presipitasi kimia mineral garam akibat penguapan.' },
+  78: { jawaban: 'Halit', teks: 'Halit (NaCl) adalah mineral paling melimpah di evaporit, terbentuk pertama saat salinitas meningkat.' },
+  79: { jawaban: 'A', teks: 'Turbidit: sedimen berbutir kasar di bawah → halus di atas (graded bedding), khas endapan arus turbid laut dalam; dicirikan oleh sekuen Bouma.' },
+  80: { jawaban: 'Bituminus', teks: 'Rank batubara: gambut → lignit → bituminus → antrasit. Bituminus: rank menengah, C=45–86%, nilai kalori tinggi.' },
+  81: { jawaban: 'B', teks: 'Batulempung <0,004 mm, permeabilitas sangat rendah → ideal sebagai batuan penutup (cap rock) perangkap minyak.' },
+  82: { jawaban: 'A', teks: 'Porositas primer = ruang antar-butir yang terbentuk selama pengendapan; porositas sekunder = hasil pelarutan/rekahan pasca-litifikasi.' },
+  83: { jawaban: 'Benar', teks: 'Fasies sedimen mencerminkan lingkungan pengendapan; analisis fasies = dasar rekonstruksi paleogeografi.' },
+  84: { jawaban: 'A', teks: 'Kematangan komposisional tinggi → mineral tidak stabil (feldspar, mika) sudah terlapuk/tererosi; tersisa kuarsa yang resisten.' },
+  85: { jawaban: 'Kompaksi', teks: 'Kompaksi: beban batuan di atas menekan sedimen → pori berkurang → butiran lebih rapat → litifikasi tahap pertama.' },
+  86: { jawaban: 'Benar', teks: 'Energi tinggi → butir kasar, sortasi baik, cross-bedding; energi rendah → butir halus, laminasi, struktur bioturbasi.' },
+  87: { jawaban: 'B', teks: 'Cadangan (reserve) = subset sumber daya yang layak ditambang secara teknis dan ekonomis dengan keyakinan geologi tinggi.' },
+  88: { jawaban: 'A', teks: 'Tambang bawah tanah menggunakan terowongan (tunnel), shaft vertikal, atau decline untuk mencapai bijih di kedalaman.' },
+  89: { jawaban: 'Cadangan', teks: 'Cadangan = measured/indicated resource yang telah melewati uji kelayakan teknis dan ekonomis → siap ditambang.' },
+  90: { jawaban: 'B', teks: 'Stripping ratio (SR) = volume overburden / volume bijih; SR tinggi → biaya lebih besar → keekonomisan berkurang.' },
+  91: { jawaban: 'Benar', teks: 'Sesar dan lipatan sering menjadi trap atau jalur pengayaan bijih; pemetaan struktur = kunci eksplorasi efisien.' },
+  92: { jawaban: 'A', teks: 'Survei gravitasi mengukur anomali Bouguer; densitas tinggi (bijih logam berat) → anomali positif; densitas rendah (garam/batubara) → anomali negatif.' },
+  93: { jawaban: 'Kadar', teks: 'Kadar bijih (grade) dinyatakan g/t untuk logam mulia atau % untuk logam dasar; menentukan nilai ekonomis deposit.' },
+  94: { jawaban: '4.200.000 gram', teks: '3.000.000 ton × 1,4 g/ton = 4.200.000 g emas.' },
+  95: { jawaban: '8.400 kg', teks: '4.200 ton bijih × 0,2% = 4.200 × 0,002 ton = 8,4 ton = 8.400 kg tembaga.' },
+  96: { jawaban: '5', teks: 'SR = 10.000.000 m³ overburden ÷ 2.000.000 m³ bijih = 5.' },
+  97: { jawaban: 'A', teks: 'Sianidasi: Au + 2NaCN + ½O₂ + H₂O → Na[Au(CN)₂] + NaOH; larutan kaya emas kemudian diproses lebih lanjut.' },
+  98: { jawaban: 'A', teks: 'AMDAL wajib dibuat untuk kegiatan pertambangan berskala besar sesuai UU No. 32/2009 tentang Perlindungan Lingkungan Hidup.' },
+  99: { jawaban: 'Salah', teks: 'Cut-off grade = kadar minimum agar penambangan menguntungkan; di bawah cut-off → tidak ekonomis untuk ditambang.' },
+  100: { jawaban: 'A', teks: 'Klasifikasi JORC/SNI: tereka (inferred) < terindikasi (indicated) < terukur (measured); measured = keyakinan tertinggi.' }
 };
 
 // ===================== RENDER KUNCI JAWABAN SETELAH SUBMIT =====================
@@ -1248,8 +1773,8 @@ submitBtn.addEventListener('click', () => {
 
   const qList = currentAttempt === 1 ? questions : shuffledQuestions;
 
-  if (answeredSet.size < 50) {
-    const unanswered = 50 - answeredSet.size;
+  if (answeredSet.size < 100) {
+    const unanswered = 100 - answeredSet.size;
     if (!confirm(`Masih ada ${unanswered} soal yang belum dijawab. Lanjutkan mengumpulkan?`)) return;
   }
 
@@ -1321,7 +1846,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const shuffleOrder = JSON.parse(localStorage.getItem('geofis_shuffle') || 'null');
     if (!shuffleOrder) return false;
     shuffledQuestions = shuffleOrder.map(no => questions.find(q => q.no === no));
-    ['section-a','section-b','section-c'].forEach(id => {
+    ['section-a','section-b','section-c','section-d','section-e','section-f'].forEach(id => {
       const el = document.getElementById(id); if (el) el.innerHTML = '';
     });
     document.getElementById('sections-abc').classList.add('hidden');
