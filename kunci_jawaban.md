@@ -81,3 +81,87 @@
 | Hitung kedalaman dan pilih prospek | 7, 8, 15 |
 | Panjang bidang (Pythagoras), konversi satuan, waktu | 3, 9, 16, 33 |
 | Nama batuan dari komposisi mineral | 35, 48, 49 |
+
+---
+
+## Bagian D: Pelapukan dan Regolith
+
+| No | Jawaban | Pembahasan |
+|---|---|---|
+| 51 | **B** | Pelapukan fisik hanya memecah batuan secara mekanik tanpa mengubah komposisi mineral. |
+| 52 | **B** | Frost wedging: air membeku di celah → mengembang → batuan terbelah. |
+| 53 | **C** | Batugamping (CaCO₃) mudah larut dalam air hujan yang mengandung asam karbonat. |
+| 54 | **Benar** | Regolith = semua material tidak terkonsolidasi di atas batuan segar. |
+| 55 | **Hidrolisis** | Air bereaksi dengan mineral silikat → mineral lempung + ion terlarut. |
+| 56 | **B** | Eksfoliasi (pressure release): batuan terkelupas konsentris akibat pelepasan tekanan. |
+| 57 | **Saprolit** | Lapisan terlapuk intensif namun struktur batuan asli masih terawetkan. |
+| 58 | **B** | Suhu tinggi + curah hujan tinggi → reaksi kimia lebih cepat di daerah tropika. |
+| 59 | **Salah** | Saprolit terbentuk dari pelapukan **kimia** intensif, bukan fisik. |
+| 60 | **Saprolit** | Terletak antara solum tanah di atas dan bedrock di bawah; struktur asli terawetkan. |
+| 61 | **B** | Hidrasi: penambahan H₂O ke kisi mineral → mineral mengembang. |
+| 62 | **Biologis** | Pelapukan oleh organisme hidup (akar, lichen, bakteri, jamur). |
+
+---
+
+## Bagian E: Batuan Sedimen
+
+| No | Jawaban | Pembahasan |
+|---|---|---|
+| 63 | **B** | Batuan sedimen klastik diklasifikasi berdasarkan ukuran butir (skala Wentworth). |
+| 64 | **B** | Litifikasi = kompaksi + sementasi, mengubah sedimen lepas menjadi batuan padat. |
+| 65 | **B** | Batubara terbentuk dari akumulasi sisa tumbuhan (organik), bukan sedimen kimia. |
+| 66 | **Breksi** | Fragmen menyudut >2 mm yang terikat semen = breksi. |
+| 67 | **Benar** | Evaporit terbentuk dari penguapan larutan garam → halit, gipsum, anhidrit. |
+| 68 | **Salah** | Batubara adalah batuan sedimen **organik** (dari sisa tumbuhan), bukan kimia. |
+| 69 | **B** | Butiran 0,0625–2 mm = ukuran pasir → batuan disebut batupasir. |
+| 70 | **Baik** | Batuan reservoir harus memiliki porositas dan permeabilitas yang tinggi/baik. |
+| 71 | **B** | Kalsit (CaCO₃) dan silika (SiO₂) adalah semen paling umum pada batupasir. |
+| 72 | **A** | Graded bedding normal: butiran mengecil ke atas dalam satu lapisan. |
+| 73 | **Pasir** | Skala Wentworth: 0,0625–2 mm = kelas pasir. |
+| 74 | **B** | Batugamping terumbu terbentuk dari akumulasi cangkang dan kerangka organisme laut. |
+| 75 | **C** | Cross-bedding terbentuk dari pengendapan oleh arus searah (sungai atau angin). |
+| 76 | **Benar** | Chert/rijang dapat terbentuk dari akumulasi biogenik radiolaria atau diatom. |
+| 77 | **B** | Evaporit = batuan sedimen kimia yang terbentuk dari penguapan larutan garam. |
+| 78 | **Halit** | NaCl = halit, komponen utama batuan garam (rock salt). |
+| 79 | **A** | Turbidit diendapkan oleh arus turbid dan memperlihatkan sekuen Bouma. |
+| 80 | **Bituminus** | Batubara rank menengah dengan kadar karbon ~45–86%. |
+| 81 | **B** | Batulempung berbutir <0,004 mm, permeabilitas sangat rendah → cocok sebagai cap rock. |
+| 82 | **A** | Porositas primer terbentuk saat pengendapan berlangsung (antarbutir/intergranular). |
+| 83 | **Benar** | Analisis fasies sedimen digunakan untuk merekonstruksi paleolingkungan. |
+| 84 | **A** | Kematangan tinggi → butiran ter-sortasi baik, dominasi kuarsa resisten. |
+| 85 | **Kompaksi** | Beban sedimen di atas menekan dan merapatkan butiran → volume pori berkurang. |
+| 86 | **Benar** | Ukuran butir dan struktur sedimen mencerminkan energi lingkungan pengendapan. |
+
+---
+
+## Bagian F: Geologi dalam Pertambangan
+
+| No | Jawaban | Pembahasan |
+|---|---|---|
+| 87 | **B** | Cadangan (reserve) = bagian sumber daya yang layak ditambang secara teknis & ekonomis. |
+| 88 | **A** | Tambang bawah tanah: terowongan/shaft di bawah permukaan tanah. |
+| 89 | **Cadangan** | Bagian sumber daya mineral siap ditambang dengan kepercayaan geologi tertinggi. |
+| 90 | **B** | Stripping ratio = volume overburden ÷ volume bijih. |
+| 91 | **Benar** | Sesar dan lipatan mengontrol distribusi bijih; pemetaan struktur krusial dalam eksplorasi. |
+| 92 | **A** | Survei gravitasi mengukur variasi gaya gravitasi akibat kontras densitas batuan. |
+| 93 | **Kadar** | Konsentrasi logam dalam bijih dinyatakan dalam g/t atau % = kadar. |
+| 94 | **4.200.000 gram** | 3.000.000 t × 1,4 g/t = 4.200.000 g |
+| 95 | **8.400 kg** | 4.200 t × 0,2% = 4.200 × 0,002 = 8,4 t = 8.400 kg |
+| 96 | **5** | SR = 10.000.000 m³ ÷ 2.000.000 m³ = 5 |
+| 97 | **A** | Sianidasi menggunakan larutan NaCN untuk melarutkan emas dari bijih. |
+| 98 | **A** | AMDAL wajib dimiliki sebelum kegiatan pertambangan berskala besar di Indonesia. |
+| 99 | **Salah** | Cut-off grade (kadar ambang batas) menentukan **kelayakan ekonomis** penambangan. |
+| 100 | **A** | Measured resource memiliki tingkat keyakinan geologi paling tinggi di antara semua kategori sumber daya. |
+
+---
+
+## Peta Soal Hitungan (Update)
+
+| Keterampilan | Soal |
+|---|---|
+| Hitung sudut dip dan klasifikasi | 2, 10, 13 |
+| Hitung kedalaman dan pilih prospek | 7, 8, 15 |
+| Panjang bidang (Pythagoras), konversi satuan, waktu | 3, 9, 16, 33 |
+| Nama batuan dari komposisi mineral | 35, 48, 49 |
+| Hitung kandungan logam (ton × kadar) | 94, 95 |
+| Hitung stripping ratio | 96 |
