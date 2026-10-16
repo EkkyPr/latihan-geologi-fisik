@@ -261,6 +261,13 @@
           </button>
         </div>
         <p id="copy-success" class="hidden text-xs text-green-600 mt-1.5 font-medium">&#10003; Kode berhasil disalin!</p>
+        <div class="mt-3 flex items-start gap-2 bg-amber-50 border border-amber-300 rounded-lg px-3 py-2">
+          <span class="text-amber-500 text-base mt-0.5">⚠️</span>
+          <p class="text-xs text-amber-800 font-medium leading-snug">
+            <strong>Penting:</strong> Segera <strong>screenshot atau salin kode hasil</strong> ini sebelum menutup/refresh halaman.
+            Nilai tidak tersimpan di server — jika browser dibersihkan atau ganti perangkat, data akan hilang.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -1411,6 +1418,18 @@ function showResultAttempt1(grade) {
   document.getElementById('result-card').classList.remove('hidden');
   document.getElementById('submit-section').classList.add('hidden');
   document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Tampilkan notice screenshot sementara di bawah result-card
+  let noticeEl = document.getElementById('screenshot-notice-p1');
+  if (!noticeEl) {
+    noticeEl = document.createElement('div');
+    noticeEl.id = 'screenshot-notice-p1';
+    noticeEl.className = 'mt-4 mx-auto max-w-lg flex items-start gap-2 bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 text-xs text-amber-800';
+    noticeEl.innerHTML = '<span class="text-amber-500 text-base mt-0.5">📸</span><span><strong>Tip:</strong> Screenshot nilai Percobaan 1 ini jika ingin menyimpannya. Kode hasil lengkap baru muncul setelah Percobaan 2.</span>';
+    const rc = document.getElementById('result-card');
+    if (rc && rc.parentNode) rc.parentNode.insertBefore(noticeEl, rc.nextSibling);
+  }
+  noticeEl.classList.remove('hidden');
 }
 
 function showResultFinal(grade1, grade2) {
@@ -1794,8 +1813,10 @@ submitBtn.addEventListener('click', () => {
 
     const grade1 = gradeAnswers(answers, qList);
     localStorage.setItem('geofis_skor1', JSON.stringify(grade1));
-    markUI(answers, qList, false);
+    markUI(answers, qList, true);
     showResultAttempt1(grade1);
+    // Tampilkan kunci jawaban langsung setelah Percobaan 1 (ini latihan, bukan tes)
+    setTimeout(() => renderAnswerKey(answers), 900);
 
   } else {
     localStorage.setItem('geofis_submitted_2', 'true');
@@ -1896,9 +1917,11 @@ window.addEventListener('DOMContentLoaded', () => {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Percobaan 1 Selesai';
 
-    markUI(answers1, questions, false);
+    markUI(answers1, questions, true);
     showResultAttempt1(grade1);
     updateAttemptUI(1);
+    // Tampilkan kunci jawaban saat restore attempt 1
+    setTimeout(() => renderAnswerKey(answers1), 900);
 
   } else {
     // Belum ada percobaan — fresh start
