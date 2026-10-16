@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geologi Fisik 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+
+    .option-label {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 14px; border-radius: 8px; cursor: pointer;
+      border: 2px solid #e5e7eb; transition: all 0.2s;
+    }
+    .option-label:hover { border-color: #6366f1; background: #eef2ff; }
+    input[type="radio"]:checked + .option-label { border-color: #6366f1; background: #eef2ff; }
+
+    .correct .option-label  { border-color: #16a34a !important; background: #dcfce7 !important; }
+    .incorrect .option-label { border-color: #dc2626 !important; background: #fee2e2 !important; }
+    .correct-answer .option-label { border-color: #16a34a !important; background: #dcfce7 !important; }
+
+    .bs-label {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: 8px; cursor: pointer;
+      border: 2px solid #e5e7eb; transition: all 0.2s;
+    }
+    .bs-label:hover { border-color: #6366f1; background: #eef2ff; }
+    input[type="radio"]:checked + .bs-label { border-color: #6366f1; background: #eef2ff; }
+
+    .isian-input {
+      border: 2px solid #d1d5db; border-radius: 8px; padding: 8px 12px;
+      width: 100%; outline: none; font-size: 0.95rem; transition: border 0.2s;
+    }
+    .isian-input:focus { border-color: #6366f1; }
+
+    .result-correct .isian-input { border-color: #16a34a !important; background: #dcfce7 !important; }
+    .result-incorrect .isian-input { border-color: #dc2626 !important; background: #fee2e2 !important; }
+
+    .badge-pg  { background: #dbeafe; color: #1d4ed8; }
+    .badge-bs  { background: #fef3c7; color: #b45309; }
+    .badge-is  { background: #f3e8ff; color: #7c3aed; }
+
+    .section-header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    }
+
+    .locked { pointer-events: none; opacity: 0.85; }
+
+    #submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .answer-key {
+      background: #f0fdf4; border: 1px solid #86efac;
+      border-radius: 8px; padding: 8px 12px;
+      font-size: 0.85rem; color: #15803d; margin-top: 6px;
+    }
+
+    .progress-bar-fill { transition: width 0.6s ease; }
+
+    .question-card { scroll-margin-top: 80px; }
+
+    /* Sticky header */
+    #sticky-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Sticky Progress Header -->
+  <div id="sticky-header" class="py-3 px-4 shadow-sm">
+    <div class="max-w-3xl mx-auto flex items-center justify-between gap-4">
+      <span class="text-sm font-semibold text-gray-700">Geologi Fisik 2026 — 50 Soal</span>
+      <span id="attempt-header-badge" class="text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">Percobaan 1/2</span>
+      <div class="flex-1 max-w-xs">
+        <div class="flex justify-between text-xs text-gray-500 mb-1">
+          <span>Progres</span>
+          <span><span id="answered-count">0</span>/50</span>
+        </div>
+        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div id="progress-bar" class="progress-bar-fill h-2 bg-indigo-500 rounded-full" style="width:0%"></div>
+        </div>
+      </div>
+      <div id="score-display" class="hidden text-sm font-bold text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full"></div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="section-header text-white py-10 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-2xl md:text-3xl font-bold mb-2">Geologi Fisik 2026</h1>
+      <p class="text-blue-200 text-sm md:text-base">50 Soal · Tektonik Lempeng · Siklus Batuan · Batuan Beku</p>
+      <div class="mt-4 flex flex-wrap gap-3 text-xs">
+        <span class="bg-white/20 px-3 py-1 rounded-full">25 Pilihan Ganda</span>
+        <span class="bg-white/20 px-3 py-1 rounded-full">10 Benar/Salah</span>
+        <span class="bg-white/20 px-3 py-1 rounded-full">15 Isian</span>
+        <span class="bg-yellow-400/90 text-yellow-900 px-3 py-1 rounded-full font-semibold">⚠ 2× Percobaan Wajib</span>
+        <span id="attempt-hero-badge" class="bg-white/20 px-3 py-1 rounded-full text-sm">Percobaan 1 dari 2</span>
+      </div>
+      <div id="countdown-wrapper" class="mt-5 inline-flex items-center gap-2 bg-white/15 rounded-xl px-4 py-2 text-sm font-semibold">
+        <span>⏱</span>
+        <span>Ditutup dalam:</span>
+        <span id="countdown-display" class="font-mono text-yellow-200 tracking-wider">--:--:--</span>
+      </div>
+      <div id="deadline-passed-badge" class="hidden mt-5 inline-flex items-center gap-2 bg-red-500/80 rounded-xl px-4 py-2 text-sm font-bold text-white">
+        🔒 Quiz sudah ditutup — Minggu, 18 Oktober 2026 pukul 23.00 WIB
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ CLOSED OVERLAY -->
+  <div id="quiz-closed-overlay" class="hidden max-w-3xl mx-auto mt-10 px-4">
+    <div class="bg-red-50 border-2 border-red-300 rounded-2xl p-8 text-center shadow-lg">
+      <div class="text-6xl mb-4">🔒</div>
+      <h2 class="text-2xl font-bold text-red-700 mb-2">Waktu Pengerjaan Telah Berakhir</h2>
+      <p class="text-red-600 text-sm">Quiz <strong>Geologi Fisik 2026</strong> sudah ditutup pada<br>
+        <strong>Minggu, 18 Oktober 2026 pukul 23.00 WIB</strong>.</p>
+      <p class="text-gray-500 text-xs mt-4">Hubungi dosen jika ada pertanyaan.</p>
+    </div>
+  </div>
+
+  <!-- Already submitted notice -->
+  <div id="already-done-notice" class="hidden max-w-3xl mx-auto mt-6 px-4">
+    <div class="bg-amber-50 border border-amber-300 rounded-xl p-4 text-amber-800 text-sm font-medium">
+      ⚠ Anda sudah mengerjakan kuis ini sebelumnya. Scroll ke bawah untuk melihat hasil.
+    </div>
+  </div>
+
+  <main class="max-w-3xl mx-auto px-4 py-8 space-y-10" id="quiz-form">
+
+    <!-- Identitas Mahasiswa -->
+    <div id="identity-section" class="bg-white border border-indigo-100 rounded-2xl p-5 shadow-sm">
+      <h3 class="font-bold text-gray-700 mb-3 text-sm uppercase tracking-wide">Identitas Mahasiswa</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="text-xs text-gray-500 font-medium block mb-1">Nama Lengkap <span class="text-red-500">*</span></label>
+          <input id="student-nama" type="text" placeholder="Nama lengkap Anda"
+            class="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo-400 transition-colors" />
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 font-medium block mb-1">NRP <span class="text-red-500">*</span></label>
+          <input id="student-nrp" type="text" placeholder="Nomor Registrasi Peserta"
+            class="w-full border-2 border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo-400 transition-colors" />
+        </div>
+      </div>
+      <p class="text-xs text-gray-400 mt-2">Wajib diisi sebelum mengumpulkan jawaban.</p>
+    </div>
+
+    <!-- SECTION A/B/C (Percobaan 1) -->
+    <div id="sections-abc">
+    <section>
+      <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
+        <h2 class="text-lg font-bold">Bagian A: Tektonik Lempeng</h2>
+        <p class="text-blue-200 text-sm">Soal 1–17</p>
+      </div>
+      <div class="space-y-5" id="section-a"></div>
+    </section>
+    <section>
+      <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
+        <h2 class="text-lg font-bold">Bagian B: Siklus Batuan</h2>
+        <p class="text-blue-200 text-sm">Soal 18–33</p>
+      </div>
+      <div class="space-y-5" id="section-b"></div>
+    </section>
+    <section>
+      <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
+        <h2 class="text-lg font-bold">Bagian C: Batuan Beku</h2>
+        <p class="text-blue-200 text-sm">Soal 34–50</p>
+      </div>
+      <div class="space-y-5" id="section-c"></div>
+    </section>
+    </div><!-- /#sections-abc -->
+
+    <!-- SECTION Percobaan 2 (Soal Diacak) -->
+    <div id="attempt2-section" class="hidden">
+      <div class="section-header rounded-xl px-5 py-4 mb-6 text-white">
+        <h2 class="text-lg font-bold">Percobaan ke-2 — Soal Diacak</h2>
+        <p class="text-blue-200 text-sm">50 Soal · urutan acak (Fisher-Yates)</p>
+      </div>
+      <div class="space-y-5" id="section-all"></div>
+    </div>
+
+    <!-- Submit -->
+    <div class="text-center py-6" id="submit-section">
+      <p id="submit-notice" class="text-sm text-gray-500 mb-1">Pastikan semua soal sudah dijawab sebelum mengumpulkan.</p>
+      <p class="text-sm mb-4"><strong id="submit-notice-em" class="text-red-600">Percobaan 1 dari 2 — Jawaban tidak bisa diubah setelah dikumpulkan.</strong></p>
+      <button id="submit-btn"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-10 py-3 rounded-xl shadow-lg transition-all text-base">
+        Kumpulkan Percobaan 1
+      </button>
+    </div>
+
+    <!-- Result Card -->
+    <div id="result-card" class="hidden bg-white border-2 border-indigo-200 rounded-2xl p-6 shadow-lg text-center">
+      <div class="text-5xl mb-3" id="result-emoji">🎉</div>
+      <h3 id="result-title" class="text-2xl font-bold text-gray-800 mb-1">Hasil Percobaan 1</h3>
+      <p class="text-5xl font-extrabold text-indigo-600 mb-2" id="result-score"></p>
+      <p class="text-gray-500 text-sm" id="result-detail"></p>
+      <div class="grid grid-cols-3 gap-4 mt-5">
+        <div class="bg-green-50 rounded-xl p-3">
+          <p class="text-2xl font-bold text-green-600" id="res-correct">0</p>
+          <p class="text-xs text-green-700">Benar</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-3">
+          <p class="text-2xl font-bold text-red-500" id="res-wrong">0</p>
+          <p class="text-xs text-red-600">Salah</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-3">
+          <p class="text-2xl font-bold text-gray-500" id="res-empty">0</p>
+          <p class="text-xs text-gray-500">Kosong</p>
+        </div>
+      </div>
+      <!-- Perbandingan Skor Percobaan 1 & 2 -->
+      <div id="score-comparison" class="hidden mt-2"></div>
+      <!-- Tombol Mulai Percobaan 2 -->
+      <div id="start-attempt2-section" class="hidden mt-5">
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+          <p class="text-sm font-semibold text-amber-800 mb-1">✅ Percobaan 1 selesai!</p>
+          <p class="text-xs text-amber-700 mb-3">Anda wajib mengerjakan Percobaan ke-2 dengan soal yang diacak untuk mendapatkan nilai akhir.</p>
+          <button onclick="startAttempt2()"
+            class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-2.5 rounded-xl shadow-md transition-all text-sm">
+            🔀 Mulai Percobaan ke-2
+          </button>
+        </div>
+      </div>
+      <!-- Kode Hasil (muncul hanya setelah Percobaan 2) -->
+      <div id="kode-hasil-section" class="hidden mt-5 p-4 bg-slate-50 border border-slate-200 rounded-xl text-left">
+        <p class="text-xs font-semibold text-gray-600 mb-2">&#128203; Kode Hasil &#8212; salin dan kirimkan ke dosen:</p>
+        <div class="flex gap-2 items-center">
+          <input id="kode-hasil-display" readonly
+            class="flex-1 text-xs font-mono bg-white border border-gray-300 rounded-lg px-3 py-2 text-gray-700 cursor-text"
+            placeholder="Kode akan muncul di sini..." />
+          <button onclick="copyKode()"
+            class="shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors">
+            Salin
+          </button>
+        </div>
+        <p id="copy-success" class="hidden text-xs text-green-600 mt-1.5 font-medium">&#10003; Kode berhasil disalin!</p>
+      </div>
+    </div>
+
+
+  </main>
+
+  <footer class="text-center text-gray-400 text-xs py-8 space-y-1">
+    <div>Geologi Fisik 2026 &middot; Angka berbeda dari ETS</div>
+  </footer>
+
+<script>
+// ===================== DATA SOAL =====================
+const questions = [
+  // BAGIAN A
+  {
+    no: 1, section: 'a', type: 'pg',
+    text: 'Zona Wadati-Benioff adalah...',
+    options: [
+      'Zona retakan di punggung tengah samudra',
+      'Bidang tempat hiposenter gempa yang mengikuti lempeng yang menunjam',
+      'Zona pertemuan dua lempeng benua',
+      'Jalur gunung api di tengah lempeng'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 2, section: 'a', type: 'pg',
+    text: 'Hiposenter gempa membentuk garis lurus dari (0 km, 0 km) hingga (200 km, 140 km). Berapa sudut penunjamannya?',
+    options: ['19,3°', '35,0°', '54,5°', '70,0°'],
+    answer: 'B'
+  },
+  {
+    no: 3, section: 'a', type: 'pg',
+    text: 'Kecepatan konvergensi 9 cm/tahun sama dengan...',
+    options: ['0,9 km/juta tahun', '9 km/juta tahun', '90 km/juta tahun', '900 km/juta tahun'],
+    answer: 'C'
+  },
+  {
+    no: 4, section: 'a', type: 'bs',
+    text: 'Pada zona subduksi, semakin jauh dari palung, hiposenter gempa semakin dalam.',
+    answer: 'Benar'
+  },
+  {
+    no: 5, section: 'a', type: 'isian',
+    text: 'Palung samudra terbentuk pada batas lempeng bertipe ______.',
+    answer: 'konvergen',
+    hint: 'Satu kata (jenis batas lempeng)'
+  },
+  {
+    no: 6, section: 'a', type: 'pg',
+    text: 'Lempeng samudra menunjam di bawah lempeng benua karena...',
+    options: [
+      'Lempeng samudra lebih tebal',
+      'Lempeng samudra lebih tua dan lebih rapat (densitas lebih besar)',
+      'Lempeng benua lebih tipis',
+      'Lempeng benua bergerak lebih cepat'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 7, section: 'a', type: 'isian',
+    text: 'Kedalaman zona Benioff = 0,6 × jarak dari palung. Prospek R berjarak 175 km dari palung. Kedalaman lempeng di bawah R adalah ______ km.',
+    answer: '105',
+    hint: 'Angka dalam km'
+  },
+  {
+    no: 8, section: 'a', type: 'pg',
+    text: 'Kedalaman zona Benioff = 0,4 × jarak dari palung. Magma busur terbentuk pada kedalaman 90–110 km. Pada jarak berapa dari palung busur magmatik berada?',
+    options: ['36–44 km', '90–110 km', '225–275 km', '360–440 km'],
+    answer: 'C'
+  },
+  {
+    no: 9, section: 'a', type: 'isian',
+    text: 'Lempeng bergerak 4 cm/tahun. Jarak sepanjang bidang penunjaman adalah 240 km. Waktu tempuhnya ______ juta tahun. (Tulis konversi satuannya.)',
+    answer: '6',
+    hint: 'Angka dalam juta tahun'
+  },
+  {
+    no: 10, section: 'a', type: 'bs',
+    text: 'Sudut penunjaman 72° tergolong landai.',
+    answer: 'Salah'
+  },
+  {
+    no: 11, section: 'a', type: 'pg',
+    text: 'Contoh batas lempeng divergen adalah...',
+    options: ['Palung Jawa', 'Patahan San Andreas', 'Punggung Tengah Atlantik', 'Pegunungan Himalaya'],
+    answer: 'C'
+  },
+  {
+    no: 12, section: 'a', type: 'pg',
+    text: 'Batas lempeng transform ditandai dengan pergerakan...',
+    options: ['Saling menjauh', 'Saling mendekat dan menunjam', 'Saling bergeser mendatar', 'Saling bertumbukan tanpa gerakan'],
+    answer: 'C'
+  },
+  {
+    no: 13, section: 'a', type: 'isian',
+    text: 'Hiposenter gempa berada pada (0 km, 0 km) dan (150 km, 90 km). Sudut penunjamannya ______°, sehingga tergolong ______ (landai/sedang/curam).',
+    answer: '31,sedang',
+    hint: 'Tulis: sudut°, klasifikasi — contoh: 45, sedang',
+    multipart: true
+  },
+  {
+    no: 14, section: 'a', type: 'pg',
+    text: 'Gunung api busur terbentuk di atas lempeng yang menunjam karena...',
+    options: [
+      'Lempeng melepas air sehingga titik leleh mantel turun',
+      'Lempeng menjadi sangat panas dan meleleh sendiri',
+      'Gesekan lempeng menghasilkan api',
+      'Lempeng benua menipis'
+    ],
+    answer: 'A'
+  },
+  {
+    no: 15, section: 'a', type: 'bs',
+    text: 'Magma busur terbentuk pada kedalaman 90–110 km. Prospek emas di atas lempeng pada kedalaman 45 km lebih prospektif daripada prospek di atas kedalaman 105 km.',
+    answer: 'Salah'
+  },
+  {
+    no: 16, section: 'a', type: 'isian',
+    text: 'Hiposenter terjauh berada pada jarak horizontal 210 km dari palung dengan kedalaman 90 km. Lempeng bergerak 6 cm/tahun. Panjang bidang penunjaman adalah ______ km (bulatkan), sehingga waktu tempuhnya ______ juta tahun.',
+    answer: '229,3.8',
+    hint: 'Tulis: panjang km, waktu juta tahun — contoh: 229, 3.8',
+    multipart: true
+  },
+  {
+    no: 17, section: 'a', type: 'pg',
+    text: 'Magma yang terbentuk di busur vulkanik di atas zona subduksi umumnya berkomposisi...',
+    options: ['Ultramafik', 'Intermediet (andesitik)', 'Selalu felsik (riolitik)', 'Karbonatit'],
+    answer: 'B'
+  },
+  // BAGIAN B
+  {
+    no: 18, section: 'b', type: 'pg',
+    text: 'Urutan proses pembentukan batuan sedimen klastik yang benar adalah...',
+    options: [
+      'Litifikasi → pelapukan → erosi → pengendapan',
+      'Pelapukan → erosi → transportasi → pengendapan → litifikasi',
+      'Erosi → litifikasi → pelapukan → pengendapan',
+      'Pelelehan → pelapukan → litifikasi'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 19, section: 'b', type: 'pg',
+    text: 'Litifikasi terdiri dari dua proses utama, yaitu...',
+    options: ['Pelapukan dan erosi', 'Kompaksi dan sementasi', 'Pelelehan dan kristalisasi', 'Deformasi dan rekristalisasi'],
+    answer: 'B'
+  },
+  {
+    no: 20, section: 'b', type: 'bs',
+    text: 'Batuan metamorf dapat langsung menjadi batuan sedimen tanpa melalui pelelehan.',
+    answer: 'Benar'
+  },
+  {
+    no: 21, section: 'b', type: 'isian',
+    text: 'Batuan beku ekstrusif pada umumnya bertekstur ______ karena pendinginannya cepat.',
+    answer: 'afanitik',
+    hint: 'Satu kata (nama tekstur)'
+  },
+  {
+    no: 22, section: 'b', type: 'pg',
+    text: 'Marmer adalah batuan metamorf yang berasal dari...',
+    options: ['Batupasir', 'Batulempung', 'Batugamping', 'Granit'],
+    answer: 'C'
+  },
+  {
+    no: 23, section: 'b', type: 'pg',
+    text: 'Batupasir kaya kuarsa yang termetamorfosis menjadi...',
+    options: ['Marmer', 'Kuarsit', 'Sabak', 'Gneis'],
+    answer: 'B'
+  },
+  {
+    no: 24, section: 'b', type: 'isian',
+    text: 'Batulempung yang termetamorfosis tingkat rendah menjadi batuan metamorf bernama ______.',
+    answer: 'sabak',
+    hint: 'Nama batuan metamorf (boleh tulis nama Indonesia atau Inggris)'
+  },
+  {
+    no: 25, section: 'b', type: 'bs',
+    text: 'Metamorfisme kontak terutama disebabkan oleh tekanan yang sangat tinggi.',
+    answer: 'Salah'
+  },
+  {
+    no: 26, section: 'b', type: 'pg',
+    text: 'Dua sumber energi utama siklus batuan adalah...',
+    options: ['Matahari dan panas internal bumi', 'Angin dan hujan', 'Gravitasi dan magnet bumi', 'Panas internal bumi dan bulan'],
+    answer: 'A'
+  },
+  {
+    no: 27, section: 'b', type: 'isian',
+    text: 'Batuan sedimen yang terbentuk dari pecahan batuan lain disebut batuan sedimen ______.',
+    answer: 'klastik',
+    hint: 'Satu kata'
+  },
+  {
+    no: 28, section: 'b', type: 'pg',
+    text: 'Contoh batuan beku intrusif adalah...',
+    options: ['Andesit', 'Basal', 'Granit', 'Riolit'],
+    answer: 'C'
+  },
+  {
+    no: 29, section: 'b', type: 'bs',
+    text: 'Basal dan gabro memiliki komposisi mineral yang sama, tetapi teksturnya berbeda.',
+    answer: 'Benar'
+  },
+  {
+    no: 30, section: 'b', type: 'pg',
+    text: 'Contoh "jalan pintas" dalam siklus batuan adalah...',
+    options: [
+      'Batuan beku menjadi sedimen',
+      'Granit langsung menjadi gneis tanpa pelapukan',
+      'Sedimen menjadi magma',
+      'Magma menjadi batuan beku'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 31, section: 'b', type: 'isian',
+    text: 'Proses perubahan batuan menjadi magma disebut ______.',
+    answer: 'pelelehan',
+    hint: 'Satu kata proses'
+  },
+  {
+    no: 32, section: 'b', type: 'pg',
+    text: 'Metamorfisme regional paling umum terjadi pada...',
+    options: [
+      'Sekitar intrusi kecil',
+      'Zona tumbukan lempeng dan pembentukan pegunungan',
+      'Dasar sungai',
+      'Permukaan gunung api'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 33, section: 'b', type: 'isian',
+    text: 'Laju pengendapan 0,5 mm/tahun. Untuk membentuk lapisan setebal 40 m diperlukan ______ tahun. (Tulis konversi satuan.)',
+    answer: '80000',
+    hint: 'Angka dalam tahun (boleh tulis 80.000 atau 80000)'
+  },
+  // BAGIAN C
+  {
+    no: 34, section: 'c', type: 'pg',
+    text: 'Tekstur faneritik terbentuk karena magma...',
+    options: [
+      'Mendingin sangat cepat di permukaan',
+      'Mendingin lambat di kedalaman',
+      'Mengandung banyak gas',
+      'Mengalami dua kali pelelehan'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 35, section: 'c', type: 'pg',
+    text: 'Batuan faneritik dengan kuarsa 25%, K-feldspar 40%, plagioklas 28%, dan biotit 7% adalah...',
+    options: ['Diorit', 'Gabro', 'Granit', 'Peridotit'],
+    answer: 'C'
+  },
+  {
+    no: 36, section: 'c', type: 'isian',
+    text: 'Padanan ekstrusif dari granit adalah ______.',
+    answer: 'riolit',
+    hint: 'Nama batuan beku'
+  },
+  {
+    no: 37, section: 'c', type: 'isian',
+    text: 'Padanan ekstrusif dari gabro adalah ______.',
+    answer: 'basal',
+    hint: 'Nama batuan beku'
+  },
+  {
+    no: 38, section: 'c', type: 'bs',
+    text: 'Andesit porfir memiliki tekstur porfiritik.',
+    answer: 'Benar'
+  },
+  {
+    no: 39, section: 'c', type: 'pg',
+    text: 'Tekstur porfiritik (fenokris dalam massa dasar halus) menunjukkan magma...',
+    options: [
+      'Mendingin satu tahap, sangat cepat',
+      'Mendingin dua tahap: lambat lalu cepat',
+      'Mendingin dua tahap: cepat lalu lambat',
+      'Mendingin sangat lambat'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 40, section: 'c', type: 'pg',
+    text: 'Menurut Deret Reaksi Bowen, mineral yang mengkristal paling awal (suhu tinggi) adalah...',
+    options: ['Kuarsa', 'Muskovit', 'Olivin', 'K-feldspar'],
+    answer: 'C'
+  },
+  {
+    no: 41, section: 'c', type: 'bs',
+    text: 'Kuarsa adalah mineral yang terbentuk paling awal dalam Deret Reaksi Bowen.',
+    answer: 'Salah'
+  },
+  {
+    no: 42, section: 'c', type: 'pg',
+    text: 'Batuan yang hampir seluruhnya terdiri dari olivin dan piroksen adalah...',
+    options: ['Granit', 'Andesit', 'Peridotit', 'Riolit'],
+    answer: 'C'
+  },
+  {
+    no: 43, section: 'c', type: 'isian',
+    text: 'Batuan beku yang kaya silika (>65%), kuarsa, dan K-feldspar tergolong ______ (felsik/intermediet/mafik/ultramafik).',
+    answer: 'felsik',
+    hint: 'Salah satu dari: felsik / intermediet / mafik / ultramafik'
+  },
+  {
+    no: 44, section: 'c', type: 'pg',
+    text: 'Obsidian bertekstur gelas karena...',
+    options: [
+      'Pendinginan sangat lambat',
+      'Pendinginan sangat cepat sehingga kristal tidak sempat tumbuh',
+      'Tekanan yang tinggi',
+      'Kandungan olivin tinggi'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 45, section: 'c', type: 'bs',
+    text: 'Batolit adalah tubuh intrusi sangat besar (luas >100 km²).',
+    answer: 'Benar'
+  },
+  {
+    no: 46, section: 'c', type: 'pg',
+    text: 'Granit besar yang berasosiasi dengan mineralisasi timah paling mungkin terbentuk pada...',
+    options: [
+      'Punggung tengah samudra',
+      'Zona tumbukan benua atau kerak benua tebal',
+      'Titik panas samudra',
+      'Cekungan samudra dalam'
+    ],
+    answer: 'B'
+  },
+  {
+    no: 47, section: 'c', type: 'isian',
+    text: 'Tubuh intrusi berbentuk lembaran yang memotong perlapisan batuan disebut ______.',
+    answer: 'dike',
+    hint: 'Istilah geologi (boleh tulis "dike" atau "retas")'
+  },
+  {
+    no: 48, section: 'c', type: 'pg',
+    text: 'Batuan faneritik dengan plagioklas 68%, hornblenda 18%, biotit 10%, dan kuarsa 4% adalah...',
+    options: ['Granit', 'Diorit', 'Gabro', 'Basal'],
+    answer: 'B'
+  },
+  {
+    no: 49, section: 'c', type: 'isian',
+    text: 'Suatu granit mengandung kuarsa 28%, K-feldspar 32%, dan plagioklas 27%. Sisanya adalah mineral lain sebesar ______ %.',
+    answer: '13',
+    hint: 'Angka dalam %'
+  },
+  {
+    no: 50, section: 'c', type: 'bs',
+    text: 'Magma mafik lebih kental dibanding magma felsik.',
+    answer: 'Salah'
+  }
+];
+
+// Kunci jawaban lengkap untuk tampilan setelah submit
+const answerKeys = {
+  1: 'B – Bidang tempat hiposenter gempa yang mengikuti lempeng yang menunjam.',
+  2: 'B – arctan(140/200) = arctan(0,7) ≈ 35,0°',
+  3: 'C – 9 cm/th × (1 km/10⁵ cm) = 90 km/juta th',
+  4: 'Benar – Lempeng bergerak turun, makin jauh dari palung makin dalam.',
+  5: 'Konvergen – Palung terbentuk di batas konvergen (subduksi).',
+  6: 'B – Lempeng samudra lebih rapat, sehingga menunjam.',
+  7: '105 km – 0,6 × 175 = 105',
+  8: 'C – Jarak = kedalaman ÷ 0,4 → 90/0,4 = 225 km dan 110/0,4 = 275 km',
+  9: '6 juta tahun – 240 km = 2,4×10⁷ cm → t = 2,4×10⁷ ÷ 4 = 6×10⁶ tahun',
+  10: 'Salah – 72° termasuk curam (>60°).',
+  11: 'C – Punggung Tengah Atlantik adalah batas divergen.',
+  12: 'C – Transform: bergeser mendatar.',
+  13: '31°, sedang – arctan(90/150) ≈ 31,0°; antara 30°–60° = sedang.',
+  14: 'A – Air dari lempeng menurunkan titik leleh mantel → magma.',
+  15: 'Salah – 45 km terlalu dangkal; 105 km masuk rentang 90–110 km (lebih prospektif).',
+  16: '229 km; 3,8 juta tahun – √(210²+90²) ≈ 229 km → 2,29×10⁷÷6 ≈ 3,8×10⁶ th',
+  17: 'B – Magma busur umumnya andesitik (intermediet).',
+  18: 'B – Pelapukan→erosi→transportasi→pengendapan→litifikasi.',
+  19: 'B – Litifikasi = kompaksi + sementasi.',
+  20: 'Benar – Metamorf bisa terangkat, lapuk, lalu menjadi sedimen.',
+  21: 'Afanitik – Pendinginan cepat → kristal sangat halus.',
+  22: 'C – Marmer berasal dari batugamping.',
+  23: 'B – Batupasir kuarsa → kuarsit.',
+  24: 'Sabak (slate) – Batulempung → sabak (metamorfisme rendah).',
+  25: 'Salah – Metamorfisme kontak disebabkan panas dari intrusi.',
+  26: 'A – Matahari dan panas internal bumi.',
+  27: 'Klastik – Terbentuk dari fragmen batuan lain.',
+  28: 'C – Granit intrusif; andesit, basal, riolit adalah ekstrusif.',
+  29: 'Benar – Komposisi sama (mafik), tekstur berbeda (basal halus, gabro kasar).',
+  30: 'B – Batuan beku langsung menjadi metamorf = jalan pintas.',
+  31: 'Pelelehan – Peleburan batuan → magma.',
+  32: 'B – Metamorfisme regional terjadi di zona tumbukan/pegunungan.',
+  33: '80.000 tahun – 40 m = 40.000 mm → 40.000 ÷ 0,5 = 80.000 th',
+  34: 'B – Pendinginan lambat → kristal besar (faneritik).',
+  35: 'C – Kaya kuarsa + K-feldspar, faneritik → granit.',
+  36: 'Riolit – Padanan ekstrusif granit.',
+  37: 'Basal – Padanan ekstrusif gabro.',
+  38: 'Benar – Fenokris dalam massa dasar halus = porfiritik.',
+  39: 'B – Lambat di kedalaman (fenokris), lalu cepat (massa dasar halus).',
+  40: 'C – Olivin mengkristal paling awal pada suhu tinggi.',
+  41: 'Salah – Kuarsa mengkristal paling akhir (suhu rendah).',
+  42: 'C – Peridotit adalah batuan ultramafik (olivin + piroksen).',
+  43: 'Felsik – Silika >65% → felsik.',
+  44: 'B – Pendinginan sangat cepat → tidak ada kristal → tekstur gelas.',
+  45: 'Benar – Batolit: luas >100 km².',
+  46: 'B – Granit kaya silika berasal dari leleh kerak benua.',
+  47: 'Dike (retas) – Dike memotong perlapisan; sill sejajar perlapisan.',
+  48: 'B – Plagioklas dominan + hornblenda + sedikit kuarsa, faneritik → diorit.',
+  49: '13% – 100 − (28+32+27) = 13.',
+  50: 'Salah – Magma felsik lebih kental; magma mafik lebih encer.'
+};
+
+// ===================== RENDER =====================
+const sectionMap = { a: 'section-a', b: 'section-b', c: 'section-c' };
+
+function renderQuestion(q) {
+  const container = document.createElement('div');
+  container.className = 'question-card bg-white rounded-xl shadow-sm border border-gray-100 p-5';
+  container.id = `q${q.no}`;
+
+  const badgeClass = q.type === 'pg' ? 'badge-pg' : q.type === 'bs' ? 'badge-bs' : 'badge-is';
+  const badgeLabel = q.type === 'pg' ? 'PG' : q.type === 'bs' ? 'B/S' : 'Isian';
+
+  let inputHTML = '';
+
+  if (q.type === 'pg') {
+    const labels = ['A', 'B', 'C', 'D'];
+    inputHTML = `<div class="space-y-2 mt-3">` +
+      q.options.map((opt, i) => `
+        <div class="option-wrapper" data-val="${labels[i]}">
+          <input type="radio" id="q${q.no}_${labels[i]}" name="q${q.no}" value="${labels[i]}" class="hidden peer" />
+          <label for="q${q.no}_${labels[i]}" class="option-label">
+            <span class="font-bold text-indigo-600 min-w-[20px]">${labels[i]}.</span>
+            <span>${opt}</span>
+          </label>
+        </div>`).join('') + `</div>`;
+  } else if (q.type === 'bs') {
+    inputHTML = `<div class="flex gap-3 mt-3">
+      <div class="bs-wrapper" data-val="Benar">
+        <input type="radio" id="q${q.no}_B" name="q${q.no}" value="Benar" class="hidden peer" />
+        <label for="q${q.no}_B" class="bs-label text-sm font-medium">
+          <span class="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:border-green-600 peer-checked:bg-green-600 inline-block"></span>
+          Benar
+        </label>
+      </div>
+      <div class="bs-wrapper" data-val="Salah">
+        <input type="radio" id="q${q.no}_S" name="q${q.no}" value="Salah" class="hidden peer" />
+        <label for="q${q.no}_S" class="bs-label text-sm font-medium">
+          <span class="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:border-red-500 peer-checked:bg-red-500 inline-block"></span>
+          Salah
+        </label>
+      </div>
+    </div>`;
+  } else {
+    inputHTML = `<div class="mt-3">
+      <input type="text" id="q${q.no}_inp" class="isian-input" placeholder="${q.hint || 'Tulis jawaban Anda...'}" autocomplete="off" />
+    </div>`;
+  }
+
+  container.innerHTML = `
+    <div class="flex items-start justify-between gap-2 mb-2">
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white text-sm font-bold">${q.no}</span>
+        <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${badgeClass}">${badgeLabel}</span>
+      </div>
+      <span id="q${q.no}_status" class="text-xs font-medium text-gray-400">Belum dijawab</span>
+    </div>
+    <p class="text-gray-800 text-sm leading-relaxed">${q.text}</p>
+    ${inputHTML}
+    <div id="q${q.no}_key" class="hidden answer-key mt-3"></div>
+  `;
+  return container;
+}
+
+// Render all questions
+questions.forEach(q => {
+  const el = renderQuestion(q);
+  document.getElementById(sectionMap[q.section]).appendChild(el);
+});
+
+// ===================== STATE & SHUFFLE =====================
+let currentAttempt = parseInt(localStorage.getItem('geofis_attempt') || '1');
+let shuffledQuestions = [];
+let answeredSet = new Set();
+
+function updateProgress() {
+  const count = answeredSet.size;
+  const el = document.getElementById('answered-count');
+  const pb = document.getElementById('progress-bar');
+  if (el) el.textContent = count;
+  if (pb) pb.style.width = `${(count/50)*100}%`;
+}
+
+function updateAttemptUI(attempt) {
+  const heroBadge   = document.getElementById('attempt-hero-badge');
+  const headerBadge = document.getElementById('attempt-header-badge');
+  if (heroBadge)   heroBadge.textContent   = `Percobaan ${attempt} dari 2`;
+  if (headerBadge) headerBadge.textContent = `Percobaan ${attempt}/2`;
+
+  const notice   = document.getElementById('submit-notice');
+  const noticeEm = document.getElementById('submit-notice-em');
+  if (attempt === 1) {
+    if (notice)   notice.textContent   = 'Pastikan semua soal sudah dijawab sebelum mengumpulkan.';
+    if (noticeEm) noticeEm.textContent = 'Percobaan 1 dari 2 — Jawaban tidak bisa diubah setelah dikumpulkan.';
+  } else {
+    if (notice)   notice.textContent   = 'Percobaan ke-2: Soal sudah diacak. Kumpulkan untuk melihat nilai akhir.';
+    if (noticeEm) noticeEm.textContent = 'Ini adalah percobaan terakhir. Nilai rata-rata kedua percobaan akan dihitung.';
+  }
+
+  const sb = document.getElementById('submit-btn');
+  if (sb) sb.textContent = attempt === 1 ? 'Kumpulkan Percobaan 1' : 'Kumpulkan Percobaan 2';
+}
+
+// Fisher-Yates shuffle
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function bindProgressListeners(qList) {
+  qList.forEach(q => {
+    if (q.type === 'pg' || q.type === 'bs') {
+      const radios = document.querySelectorAll(`input[name="q${q.no}"]`);
+      radios.forEach(r => {
+        r.addEventListener('change', () => {
+          const st = document.getElementById(`q${q.no}_status`);
+          if (st) { st.textContent = 'Dijawab ✓'; st.className = 'text-xs font-medium text-green-600'; }
+          answeredSet.add(q.no);
+          updateProgress();
+        });
+      });
+    } else {
+      const inp = document.getElementById(`q${q.no}_inp`);
+      if (inp) {
+        inp.addEventListener('input', () => {
+          const st = document.getElementById(`q${q.no}_status`);
+          if (inp.value.trim()) {
+            if (st) { st.textContent = 'Dijawab ✓'; st.className = 'text-xs font-medium text-green-600'; }
+            answeredSet.add(q.no);
+          } else {
+            if (st) { st.textContent = 'Belum dijawab'; st.className = 'text-xs font-medium text-gray-400'; }
+            answeredSet.delete(q.no);
+          }
+          updateProgress();
+        });
+      }
+    }
+  });
+  updateProgress();
+}
+
+// Bind listener untuk Percobaan 1
+bindProgressListeners(questions);
+
+// ===================== ANSWER CHECKING =====================
+function normalizeIsin(val) {
+  return val.toLowerCase()
+    .replace(/[,.]/g, '')
+    .replace(/\s+/g, '')
+    .replace(/juta/g, '')
+    .replace(/tahun/g, '')
+    .replace(/km/g, '')
+    .replace(/%/g, '')
+    .replace(/°/g, '');
+}
+
+function checkIsin(userVal, correctVal, q) {
+  const u = normalizeIsin(userVal);
+  const parts = correctVal.split(',').map(p => normalizeIsin(p));
+  if (q.no === 33) return u === '80000';
+  if (q.no === 16) return u.includes('229') && (u.includes('38') || u.includes('3,8'));
+  if (q.no === 13) return u.includes('31') && u.includes('sedang');
+  if (q.no === 47) { const raw = userVal.toLowerCase().trim(); return raw.includes('dike') || raw.includes('retas'); }
+  if (q.no === 24) { const raw = userVal.toLowerCase().trim(); return raw.includes('sabak') || raw.includes('slate'); }
+  return parts.every(p => u.includes(p));
+}
+
+// ===================== SUBMIT =====================
+const submitBtn = document.getElementById('submit-btn');
+
+function collectAnswers(qList) {
+  const answers = {};
+  qList.forEach(q => {
+    if (q.type === 'pg' || q.type === 'bs') {
+      const checked = document.querySelector(`input[name="q${q.no}"]:checked`);
+      answers[q.no] = checked ? checked.value : '';
+    } else {
+      const inp = document.getElementById(`q${q.no}_inp`);
+      answers[q.no] = inp ? inp.value.trim() : '';
+    }
+  });
+  return answers;
+}
+
+function gradeAnswers(answers, qList) {
+  let correct = 0, wrong = 0, empty = 0;
+  qList.forEach(q => {
+    const ua = answers[q.no] || '';
+    if (!ua) { empty++; return; }
+    let ok = false;
+    if (q.type === 'pg') ok = ua === q.answer;
+    else if (q.type === 'bs') ok = ua === q.answer;
+    else ok = checkIsin(ua, q.answer, q);
+    if (ok) correct++; else wrong++;
+  });
+  return { correct, wrong, empty, pct: Math.round((correct / 50) * 100) };
+}
+
+function markUI(answers, qList, showKey) {
+  qList.forEach(q => {
+    const ua = answers[q.no] || '';
+    const card     = document.getElementById(`q${q.no}`);
+    const statusEl = document.getElementById(`q${q.no}_status`);
+    const keyEl    = document.getElementById(`q${q.no}_key`);
+    if (!card) return;
+
+    if (ua) {
+      if (q.type === 'pg' || q.type === 'bs') {
+        const radio = document.querySelector(`input[name="q${q.no}"][value="${ua}"]`);
+        if (radio) radio.checked = true;
+      } else {
+        const inp = document.getElementById(`q${q.no}_inp`);
+        if (inp) inp.value = ua;
+      }
+    }
+
+    let isCorrect = false;
+    if (!ua) {
+      if (statusEl) { statusEl.textContent = 'Tidak dijawab'; statusEl.className = 'text-xs font-medium text-gray-400'; }
+    } else {
+      if (q.type === 'pg') {
+        isCorrect = ua === q.answer;
+        const wrapper = card.querySelector(`.option-wrapper[data-val="${ua}"]`);
+        const correctWrapper = card.querySelector(`.option-wrapper[data-val="${q.answer}"]`);
+        if (wrapper) wrapper.classList.add(isCorrect ? 'correct' : 'incorrect');
+        if (!isCorrect && correctWrapper) correctWrapper.classList.add('correct-answer');
+      } else if (q.type === 'bs') {
+        isCorrect = ua === q.answer;
+        const wrapper = card.querySelector(`.bs-wrapper[data-val="${ua}"]`);
+        if (wrapper) {
+          wrapper.querySelector('label').style.borderColor = isCorrect ? '#16a34a' : '#dc2626';
+          wrapper.querySelector('label').style.background  = isCorrect ? '#dcfce7' : '#fee2e2';
+        }
+        if (!isCorrect) {
+          const corrWrap = card.querySelector(`.bs-wrapper[data-val="${q.answer}"]`);
+          if (corrWrap) {
+            corrWrap.querySelector('label').style.borderColor = '#16a34a';
+            corrWrap.querySelector('label').style.background  = '#dcfce7';
+          }
+        }
+      } else {
+        isCorrect = checkIsin(ua, q.answer, q);
+        const inp = document.getElementById(`q${q.no}_inp`);
+        if (inp) inp.closest('div').classList.add(isCorrect ? 'result-correct' : 'result-incorrect');
+      }
+      if (statusEl) {
+        statusEl.textContent = isCorrect ? '✓ Benar' : '✗ Salah';
+        statusEl.className = `text-xs font-medium ${isCorrect ? 'text-green-600' : 'text-red-500'}`;
+      }
+    }
+    if (showKey && keyEl) { keyEl.textContent = '💡 ' + answerKeys[q.no]; keyEl.classList.remove('hidden'); }
+  });
+}
+
+function showResultAttempt1(grade) {
+  document.getElementById('result-score').textContent  = `${grade.pct} / 100`;
+  document.getElementById('result-detail').textContent = `${grade.correct} benar dari 50 soal`;
+  document.getElementById('res-correct').textContent   = grade.correct;
+  document.getElementById('res-wrong').textContent     = grade.wrong;
+  document.getElementById('res-empty').textContent     = grade.empty;
+  document.getElementById('result-emoji').textContent  = '📋';
+
+  const rt = document.getElementById('result-title');
+  if (rt) rt.textContent = 'Hasil Percobaan 1';
+
+  const sa2 = document.getElementById('start-attempt2-section');
+  if (sa2) sa2.classList.remove('hidden');
+
+  const kode = document.getElementById('kode-hasil-section');
+  if (kode) kode.classList.add('hidden');
+
+  const sc = document.getElementById('score-comparison');
+  if (sc) sc.classList.add('hidden');
+
+  const sd = document.getElementById('score-display');
+  if (sd) { sd.textContent = `P1: ${grade.pct}`; sd.classList.remove('hidden'); }
+
+  document.getElementById('result-card').classList.remove('hidden');
+  document.getElementById('submit-section').classList.add('hidden');
+  document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function showResultFinal(grade1, grade2) {
+  const avg = Math.round((grade1.pct + grade2.pct) / 2);
+
+  document.getElementById('result-score').textContent  = `${avg} / 100`;
+  document.getElementById('result-detail').textContent = `Nilai rata-rata dari 2 percobaan`;
+  document.getElementById('res-correct').textContent   = grade2.correct;
+  document.getElementById('res-wrong').textContent     = grade2.wrong;
+  document.getElementById('res-empty').textContent     = grade2.empty;
+  const emoji = avg >= 85 ? '🎉' : avg >= 70 ? '👍' : avg >= 55 ? '📚' : '💪';
+  document.getElementById('result-emoji').textContent  = emoji;
+
+  const rt = document.getElementById('result-title');
+  if (rt) rt.textContent = 'Hasil Akhir';
+
+  const sa2 = document.getElementById('start-attempt2-section');
+  if (sa2) sa2.classList.add('hidden');
+
+  const sc = document.getElementById('score-comparison');
+  if (sc) {
+    sc.classList.remove('hidden');
+    sc.innerHTML = `
+      <div class="grid grid-cols-3 gap-3 mt-4 text-sm">
+        <div class="bg-blue-50 rounded-xl p-3 text-center">
+          <p class="text-xs text-blue-600 font-semibold mb-1">Percobaan 1</p>
+          <p class="text-2xl font-bold text-blue-700">${grade1.pct}</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-3 text-center">
+          <p class="text-xs text-purple-600 font-semibold mb-1">Percobaan 2</p>
+          <p class="text-2xl font-bold text-purple-700">${grade2.pct}</p>
+        </div>
+        <div class="bg-indigo-50 rounded-xl p-3 text-center border-2 border-indigo-300">
+          <p class="text-xs text-indigo-600 font-semibold mb-1">Nilai Akhir</p>
+          <p class="text-2xl font-bold text-indigo-700">${avg}</p>
+        </div>
+      </div>`;
+  }
+
+  // Kode hasil final
+  const nama = localStorage.getItem('geofis_nama') || '';
+  const nrp  = localStorage.getItem('geofis_nrp')  || '';
+  const kodData = {
+    nama, nrp,
+    skor1: grade1.pct, benar1: grade1.correct, salah1: grade1.wrong,  kosong1: grade1.empty,
+    skor2: grade2.pct, benar2: grade2.correct, salah2: grade2.wrong,  kosong2: grade2.empty,
+    avg, ts: Date.now()
+  };
+  const kode = encodeKode(kodData);
+  const kodeEl = document.getElementById('kode-hasil-display');
+  if (kodeEl) kodeEl.value = kode;
+  localStorage.setItem('geofis_kode', kode);
+
+  const ks = document.getElementById('kode-hasil-section');
+  if (ks) ks.classList.remove('hidden');
+
+  const sd = document.getElementById('score-display');
+  if (sd) { sd.textContent = `Nilai: ${avg}`; sd.classList.remove('hidden'); }
+
+  document.getElementById('submit-section').classList.add('hidden');
+  document.getElementById('result-card').classList.remove('hidden');
+  document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Tampilkan kunci jawaban + pembahasan setelah delay
+  const savedAnswers2 = JSON.parse(localStorage.getItem('geofis_answers_2') || '{}');
+  setTimeout(() => renderAnswerKey(savedAnswers2), 800);
+}
+
+function startAttempt2() {
+  currentAttempt = 2;
+  localStorage.setItem('geofis_attempt', '2');
+
+  // Buat/ambil urutan acak
+  let shuffleOrder = JSON.parse(localStorage.getItem('geofis_shuffle') || 'null');
+  if (!shuffleOrder) {
+    shuffleOrder = shuffleArray(questions.map(q => q.no));
+    localStorage.setItem('geofis_shuffle', JSON.stringify(shuffleOrder));
+  }
+  shuffledQuestions = shuffleOrder.map(no => questions.find(q => q.no === no));
+
+  // Kosongkan soal Percobaan 1
+  ['section-a', 'section-b', 'section-c'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  });
+
+  // Tampilkan attempt2-section, sembunyikan sections-abc
+  document.getElementById('sections-abc').classList.add('hidden');
+  const a2sec = document.getElementById('attempt2-section');
+  a2sec.classList.remove('hidden');
+
+  // Render soal acak
+  const container = document.getElementById('section-all');
+  container.innerHTML = '';
+  shuffledQuestions.forEach(q => {
+    const el = renderQuestion(q);
+    container.appendChild(el);
+  });
+
+  // Update UI
+  updateAttemptUI(2);
+  answeredSet.clear();
+  updateProgress();
+  bindProgressListeners(shuffledQuestions);
+
+  // Reset form state
+  document.getElementById('result-card').classList.add('hidden');
+  document.getElementById('submit-section').classList.remove('hidden');
+  document.getElementById('quiz-form').classList.remove('locked');
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Kumpulkan Percobaan 2';
+
+  a2sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function encodeKode(data) {
+  try { return btoa(unescape(encodeURIComponent(JSON.stringify(data)))); } catch(e) { return ''; }
+}
+
+function copyKode() {
+  const kode = document.getElementById('kode-hasil-display').value;
+  if (!kode) return;
+  navigator.clipboard.writeText(kode).then(() => {
+    const el = document.getElementById('copy-success');
+    el.classList.remove('hidden');
+    setTimeout(() => el.classList.add('hidden'), 3000);
+  });
+}
+
+// ===================== DEADLINE =====================
+const DEADLINE = new Date('2026-10-18T23:00:00+07:00');
+
+function updateCountdown() {
+  const now  = new Date();
+  const diff = DEADLINE - now;
+  const wrapper = document.getElementById('countdown-wrapper');
+  const display = document.getElementById('countdown-display');
+  const badge   = document.getElementById('deadline-passed-badge');
+  if (!display) return;
+
+  if (diff <= 0) {
+    if (wrapper) wrapper.classList.add('hidden');
+    if (badge)   badge.classList.remove('hidden');
+    clearInterval(countdownInterval);
+    // Tutup kuis hanya jika belum selesai kedua percobaan
+    const bothDone = localStorage.getItem('geofis_submitted_1') === 'true'
+                  && localStorage.getItem('geofis_submitted_2') === 'true';
+    if (!bothDone) {
+      const overlay    = document.getElementById('quiz-closed-overlay');
+      const quizForm   = document.getElementById('quiz-form');
+      const identitySec = document.getElementById('identity-section');
+      const submitSec  = document.getElementById('submit-section');
+      const alreadyDone = document.getElementById('already-done-notice');
+      if (overlay)     overlay.classList.remove('hidden');
+      if (quizForm)    quizForm.classList.add('hidden');
+      if (identitySec) identitySec.classList.add('hidden');
+      if (submitSec)   submitSec.classList.add('hidden');
+      if (alreadyDone) alreadyDone.classList.add('hidden');
+    }
+    return;
+  }
+
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000) / 60000);
+  const secs  = Math.floor((diff % 60000) / 1000);
+
+  let txt = '';
+  if (days > 0) txt += days + 'h ';
+  txt += String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+  display.textContent = txt;
+}
+
+const countdownInterval = setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ===================== PEMBAHASAN DATA =====================
+const PEMBAHASAN = {
+  1:  { jawaban: 'B', teks: 'Zona Benioff adalah bidang hiposenter di sepanjang lempeng yang menunjam.' },
+  2:  { jawaban: 'B', teks: 'arctan(140/200) = arctan(0,7) ≈ 35,0°' },
+  3:  { jawaban: 'C', teks: '9 cm/th × (1 km / 10⁵ cm) = 9×10⁻⁵ km/th = 90 km/juta tahun' },
+  4:  { jawaban: 'Benar', teks: 'Lempeng bergerak turun, sehingga makin jauh dari palung makin dalam.' },
+  5:  { jawaban: 'Konvergen', teks: 'Palung terbentuk di batas konvergen (subduksi).' },
+  6:  { jawaban: 'B', teks: 'Lempeng samudra lebih rapat sehingga menunjam di bawah lempeng benua.' },
+  7:  { jawaban: '105 km', teks: '0,6 × 175 = 105 km' },
+  8:  { jawaban: 'C', teks: 'Jarak = kedalaman ÷ 0,4 → 90/0,4 = 225 km dan 110/0,4 = 275 km.' },
+  9:  { jawaban: '6 juta tahun', teks: '240 km = 2,4×10⁷ cm → t = 2,4×10⁷ ÷ 4 = 6×10⁶ tahun' },
+  10: { jawaban: 'Salah', teks: '72° termasuk klasifikasi curam (> 60°), bukan sedang.' },
+  11: { jawaban: 'C', teks: 'Punggung Tengah Atlantik adalah batas divergen (pemekaran lantai samudra).' },
+  12: { jawaban: 'C', teks: 'Batas transform: lempeng bergeser mendatar satu sama lain.' },
+  13: { jawaban: '31°, sedang', teks: 'arctan(90/150) = arctan(0,6) ≈ 31,0° → 30°–60° = kemiringan sedang.' },
+  14: { jawaban: 'A', teks: 'Air dari lempeng menurunkan titik leleh mantel sehingga terbentuk magma.' },
+  15: { jawaban: 'Salah', teks: '45 km terlalu dangkal; 105 km masuk rentang 90–110 km → lebih prospektif.' },
+  16: { jawaban: '229 km; 3,8 juta tahun', teks: 'L = √(210²+90²) ≈ 229 km; t = 2,29×10⁷ ÷ 6 ≈ 3,8×10⁶ tahun.' },
+  17: { jawaban: 'B', teks: 'Magma di busur kepulauan umumnya bersifat andesitik (intermediet).' },
+  18: { jawaban: 'B', teks: 'Urutan: pelapukan → erosi → transportasi → pengendapan → litifikasi.' },
+  19: { jawaban: 'B', teks: 'Litifikasi terdiri dari dua proses: kompaksi dan sementasi.' },
+  20: { jawaban: 'Benar', teks: 'Batuan metamorf bisa terangkat, lapuk, tererosi, lalu menjadi sedimen.' },
+  21: { jawaban: 'Afanitik', teks: 'Pendinginan cepat di permukaan menghasilkan kristal sangat halus (afanitik).' },
+  22: { jawaban: 'C', teks: 'Marmer = metamorf dari batugamping (CaCO₃).' },
+  23: { jawaban: 'B', teks: 'Batupasir kuarsa yang termetamorfkan menghasilkan kuarsit.' },
+  24: { jawaban: 'Sabak (slate)', teks: 'Batulempung → sabak pada metamorfisme derajat rendah.' },
+  25: { jawaban: 'Salah', teks: 'Metamorfisme kontak disebabkan panas dari intrusi, bukan tekanan.' },
+  26: { jawaban: 'A', teks: 'Dua sumber energi siklus batuan: energi matahari dan panas internal bumi.' },
+  27: { jawaban: 'Klastik', teks: 'Batuan sedimen klastik terbentuk dari fragmen (klast) batuan lain.' },
+  28: { jawaban: 'C', teks: 'Granit = intrusif; andesit, basal, dan riolit = ekstrusif (vulkanik).' },
+  29: { jawaban: 'Benar', teks: 'Basal dan gabro komposisi mafik sama; basal halus (cepat), gabro kasar (lambat).' },
+  30: { jawaban: 'B', teks: 'Batuan beku langsung berubah menjadi metamorf tanpa melalui sedimentasi.' },
+  31: { jawaban: 'Pelelehan', teks: 'Peleburan (melting) batuan menghasilkan magma.' },
+  32: { jawaban: 'B', teks: 'Metamorfisme regional terjadi di zona tumbukan lempeng / pembentukan pegunungan.' },
+  33: { jawaban: '80.000 tahun', teks: '40 m = 40.000 mm → t = 40.000 ÷ 0,5 = 80.000 tahun.' },
+  34: { jawaban: 'B', teks: 'Pendinginan lambat (intrusif) → ada waktu kristal tumbuh besar (faneritik).' },
+  35: { jawaban: 'C', teks: 'Kaya kuarsa + K-feldspar, bertekstur faneritik → granit.' },
+  36: { jawaban: 'Riolit', teks: 'Riolit = padanan ekstrusif granit (komposisi felsik, tekstur halus).' },
+  37: { jawaban: 'Basal', teks: 'Basal = padanan ekstrusif gabro (komposisi mafik, tekstur halus).' },
+  38: { jawaban: 'Benar', teks: 'Fenokris (kristal besar) dalam massa dasar halus = tekstur porfiritik.' },
+  39: { jawaban: 'B', teks: 'Lambat di kedalaman (fenokris), lalu cepat mendekati permukaan (massa dasar halus).' },
+  40: { jawaban: 'C', teks: 'Olivin mengkristal paling awal pada suhu tertinggi (deret Bowen).' },
+  41: { jawaban: 'Salah', teks: 'Kuarsa mengkristal paling akhir pada suhu rendah, bukan awal.' },
+  42: { jawaban: 'C', teks: 'Peridotit = batuan ultramafik (dominan olivin + piroksen).' },
+  43: { jawaban: 'Felsik', teks: 'Kandungan silika > 65% dikategorikan felsik.' },
+  44: { jawaban: 'B', teks: 'Pendinginan sangat cepat → tidak ada kristal → tekstur gelas (obsidian).' },
+  45: { jawaban: 'Benar', teks: 'Batolit adalah intrusi besar dengan luas singkapan > 100 km².' },
+  46: { jawaban: 'B', teks: 'Granit kaya silika berasal dari pelelehan kerak benua di zona tumbukan.' },
+  47: { jawaban: 'Dike (retas)', teks: 'Dike memotong perlapisan batuan; sill sejajar perlapisan.' },
+  48: { jawaban: 'B', teks: 'Plagioklas dominan + hornblenda + sedikit kuarsa, faneritik → diorit.' },
+  49: { jawaban: '13%', teks: '100 − (28 + 32 + 27) = 13%' },
+  50: { jawaban: 'Salah', teks: 'Magma felsik lebih kental; magma mafik lebih encer karena kadar silika rendah.' }
+};
+
+// ===================== RENDER KUNCI JAWABAN SETELAH SUBMIT =====================
+function renderAnswerKey(savedAnswers) {
+  const container = document.getElementById('answer-key-body');
+  const section   = document.getElementById('answer-key-full');
+  if (!container || !section) return;
+
+  let html = '';
+  questions.forEach(q => {
+    const pb = PEMBAHASAN[q.no];
+    if (!pb) return;
+
+    let userRaw = savedAnswers ? (savedAnswers[q.no] || '') : '';
+    let userDisp = userRaw || '<span class="italic text-gray-400">tidak dijawab</span>';
+
+    const correctNorm = (pb.jawaban || '').toLowerCase().trim();
+    const userNorm    = userRaw.toLowerCase().trim();
+
+    let isCorrect = false;
+    if (q.type === 'pg') {
+      isCorrect = userNorm === correctNorm;
+    } else if (q.type === 'bs') {
+      isCorrect = userNorm === correctNorm;
+    } else {
+      // isian — cek dari q.correct array (sudah ada di data questions)
+      isCorrect = q.correct && q.correct.some(c => userNorm === c.toLowerCase().trim());
+    }
+
+    const statusColor = userRaw === '' ? 'bg-gray-50 border-l-4 border-gray-300'
+                      : isCorrect    ? 'bg-green-50 border-l-4 border-green-400'
+                      :                'bg-red-50 border-l-4 border-red-400';
+    const statusIcon  = userRaw === '' ? '⬜' : isCorrect ? '✅' : '❌';
+
+    const typeBadge = q.type === 'pg' ? '<span class="badge-pg text-xs px-2 py-0.5 rounded-full font-medium">PG</span>'
+                    : q.type === 'bs' ? '<span class="badge-bs text-xs px-2 py-0.5 rounded-full font-medium">B/S</span>'
+                    :                   '<span class="badge-is text-xs px-2 py-0.5 rounded-full font-medium">Isian</span>';
+
+    html += `
+    <div class="px-5 py-4 ${statusColor}">
+      <div class="flex items-start gap-3">
+        <span class="text-lg mt-0.5 shrink-0">${statusIcon}</span>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-bold text-gray-500">No. ${q.no}</span>
+            ${typeBadge}
+          </div>
+          <p class="text-sm text-gray-800 mb-2 font-medium">${q.text}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white rounded-lg px-3 py-2 border border-gray-200">
+              <span class="text-gray-500">Jawaban Anda:</span>
+              <span class="ml-1 font-semibold ${isCorrect ? 'text-green-700' : userRaw ? 'text-red-600' : 'text-gray-400'}">${userDisp}</span>
+            </div>
+            <div class="bg-white rounded-lg px-3 py-2 border border-emerald-300">
+              <span class="text-gray-500">Kunci:</span>
+              <span class="ml-1 font-semibold text-emerald-700">${pb.jawaban}</span>
+            </div>
+          </div>
+          <div class="mt-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-900">
+            <span class="font-semibold">Pembahasan:</span> ${pb.teks}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+  section.classList.remove('hidden');
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+submitBtn.addEventListener('click', () => {
+  const namaVal = (document.getElementById('student-nama')?.value || '').trim();
+  const nrpVal  = (document.getElementById('student-nrp')?.value  || '').trim();
+  if (!namaVal || !nrpVal) {
+    alert('Harap isi Nama Lengkap dan NRP sebelum mengumpulkan jawaban.');
+    document.getElementById('identity-section')?.scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  localStorage.setItem('geofis_nama', namaVal);
+  localStorage.setItem('geofis_nrp',  nrpVal);
+
+  const qList = currentAttempt === 1 ? questions : shuffledQuestions;
+
+  if (answeredSet.size < 50) {
+    const unanswered = 50 - answeredSet.size;
+    if (!confirm(`Masih ada ${unanswered} soal yang belum dijawab. Lanjutkan mengumpulkan?`)) return;
+  }
+
+  const confirmMsg = currentAttempt === 1
+    ? 'Yakin mengumpulkan Percobaan 1? Setelah ini Anda wajib mengerjakan Percobaan ke-2.'
+    : 'Yakin mengumpulkan Percobaan 2? Ini adalah percobaan terakhir — nilai akhir akan dihitung.';
+  if (!confirm(confirmMsg)) return;
+
+  const answers = collectAnswers(qList);
+  document.getElementById('quiz-form').classList.add('locked');
+  submitBtn.disabled = true;
+
+  if (currentAttempt === 1) {
+    localStorage.setItem('geofis_submitted_1', 'true');
+    localStorage.setItem('geofis_answers_1', JSON.stringify(answers));
+    submitBtn.textContent = 'Percobaan 1 Selesai';
+
+    const grade1 = gradeAnswers(answers, qList);
+    localStorage.setItem('geofis_skor1', JSON.stringify(grade1));
+    markUI(answers, qList, false);
+    showResultAttempt1(grade1);
+
+  } else {
+    localStorage.setItem('geofis_submitted_2', 'true');
+    localStorage.setItem('geofis_answers_2', JSON.stringify(answers));
+    submitBtn.textContent = 'Jawaban Sudah Dikumpulkan';
+
+    const grade2 = gradeAnswers(answers, shuffledQuestions);
+    const grade1 = JSON.parse(localStorage.getItem('geofis_skor1') || '{"pct":0,"correct":0,"wrong":0,"empty":0}');
+    markUI(answers, shuffledQuestions, false);
+    showResultFinal(grade1, grade2);
+  }
+});
+
+// ===================== RESTORE STATE ON LOAD =====================
+window.addEventListener('DOMContentLoaded', () => {
+  // Deadline check
+  const bothDone = localStorage.getItem('geofis_submitted_1') === 'true'
+                && localStorage.getItem('geofis_submitted_2') === 'true';
+  if (new Date() > DEADLINE && !bothDone) {
+    const overlay    = document.getElementById('quiz-closed-overlay');
+    const quizForm   = document.getElementById('quiz-form');
+    const identitySec = document.getElementById('identity-section');
+    const submitSec  = document.getElementById('submit-section');
+    const alreadyDone = document.getElementById('already-done-notice');
+    if (overlay)     overlay.classList.remove('hidden');
+    if (quizForm)    quizForm.classList.add('hidden');
+    if (identitySec) identitySec.classList.add('hidden');
+    if (submitSec)   submitSec.classList.add('hidden');
+    if (alreadyDone) alreadyDone.classList.add('hidden');
+    const badge = document.getElementById('deadline-passed-badge');
+    if (badge) badge.classList.remove('hidden');
+    const cw = document.getElementById('countdown-wrapper');
+    if (cw) cw.classList.add('hidden');
+    return;
+  }
+
+  // Restore identitas
+  const savedNama = localStorage.getItem('geofis_nama');
+  const savedNrp  = localStorage.getItem('geofis_nrp');
+  if (savedNama) { const el = document.getElementById('student-nama'); if (el) el.value = savedNama; }
+  if (savedNrp)  { const el = document.getElementById('student-nrp');  if (el) el.value = savedNrp;  }
+
+  const sub1 = localStorage.getItem('geofis_submitted_1') === 'true';
+  const sub2 = localStorage.getItem('geofis_submitted_2') === 'true';
+
+  // Helper: restore attempt 2 render
+  function restoreAttempt2Render() {
+    const shuffleOrder = JSON.parse(localStorage.getItem('geofis_shuffle') || 'null');
+    if (!shuffleOrder) return false;
+    shuffledQuestions = shuffleOrder.map(no => questions.find(q => q.no === no));
+    ['section-a','section-b','section-c'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.innerHTML = '';
+    });
+    document.getElementById('sections-abc').classList.add('hidden');
+    const a2sec = document.getElementById('attempt2-section');
+    a2sec.classList.remove('hidden');
+    const container = document.getElementById('section-all');
+    container.innerHTML = '';
+    shuffledQuestions.forEach(q => { const el = renderQuestion(q); container.appendChild(el); });
+    currentAttempt = 2;
+    updateAttemptUI(2);
+    return true;
+  }
+
+  if (sub2) {
+    // Kedua percobaan sudah selesai — tampilkan hasil akhir
+    document.getElementById('already-done-notice').classList.remove('hidden');
+    const idSec = document.getElementById('identity-section');
+    if (idSec) idSec.classList.add('locked');
+
+    restoreAttempt2Render();
+
+    const answers2 = JSON.parse(localStorage.getItem('geofis_answers_2') || '{}');
+    const grade2   = gradeAnswers(answers2, shuffledQuestions.length ? shuffledQuestions : questions);
+    const grade1   = JSON.parse(localStorage.getItem('geofis_skor1') || '{"pct":0,"correct":0,"wrong":0,"empty":0}');
+
+    document.getElementById('quiz-form').classList.add('locked');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Jawaban Sudah Dikumpulkan';
+
+    markUI(answers2, shuffledQuestions.length ? shuffledQuestions : questions, false);
+    showResultFinal(grade1, grade2);
+
+    const kode = localStorage.getItem('geofis_kode');
+    if (kode) { const kodeEl = document.getElementById('kode-hasil-display'); if (kodeEl) kodeEl.value = kode; }
+
+  } else if (sub1) {
+    // Percobaan 1 selesai — tampilkan result P1 + tombol mulai P2
+    document.getElementById('already-done-notice').classList.remove('hidden');
+    const idSec = document.getElementById('identity-section');
+    if (idSec) idSec.classList.add('locked');
+
+    const answers1 = JSON.parse(localStorage.getItem('geofis_answers_1') || '{}');
+    const g1stored = JSON.parse(localStorage.getItem('geofis_skor1') || 'null');
+    const grade1   = g1stored || gradeAnswers(answers1, questions);
+
+    document.getElementById('quiz-form').classList.add('locked');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Percobaan 1 Selesai';
+
+    markUI(answers1, questions, false);
+    showResultAttempt1(grade1);
+    updateAttemptUI(1);
+
+  } else {
+    // Belum ada percobaan — fresh start
+    updateAttemptUI(1);
+  }
+});
+
+</script>
+</body>
+</html>

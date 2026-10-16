@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rekap Nilai Mahasiswa — Geologi Fisik 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .grad-header { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); }
+    th { cursor: pointer; user-select: none; }
+    th:hover { background: #e0e7ff; }
+    th.sort-asc::after  { content: ' ▲'; font-size: 0.7rem; }
+    th.sort-desc::after { content: ' ▼'; font-size: 0.7rem; }
+    .nilai-a { background: #dcfce7; color: #15803d; }
+    .nilai-b { background: #dbeafe; color: #1d4ed8; }
+    .nilai-c { background: #fef9c3; color: #a16207; }
+    .nilai-d { background: #fee2e2; color: #b91c1c; }
+    .nilai-e { background: #f3f4f6; color: #6b7280; }
+    .badge { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Header -->
+  <div class="grad-header text-white py-8 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h1 class="text-2xl font-bold">Rekap Nilai Mahasiswa</h1>
+          <p class="text-blue-200 text-sm mt-1">Geologi Fisik 2026 &mdash; 50 Soal</p>
+        </div>
+        <a href="index.html" class="text-blue-200 hover:text-white text-sm underline">&larr; Kembali ke Kuis</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 space-y-6">
+
+    <!-- Petunjuk -->
+    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 text-sm text-indigo-800">
+      <strong>Cara penggunaan:</strong> Minta setiap mahasiswa menyalin <em>Kode Hasil</em> dari halaman kuis, lalu tempelkan di kolom di bawah ini satu per satu.
+    </div>
+
+    <!-- Input Kode -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+      <h2 class="font-bold text-gray-700 mb-3">Tambah Data Mahasiswa</h2>
+      <div class="flex gap-2 flex-wrap">
+        <input id="kode-input" type="text" placeholder="Tempelkan kode hasil mahasiswa di sini..."
+          class="flex-1 min-w-0 border-2 border-gray-200 rounded-lg px-3 py-2 text-sm font-mono outline-none focus:border-indigo-400 transition-colors" />
+        <button onclick="addEntry()"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2 rounded-lg text-sm transition-colors">
+          Tambah
+        </button>
+      </div>
+      <p id="input-error" class="hidden text-xs text-red-500 mt-2 font-medium"></p>
+      <p id="input-success" class="hidden text-xs text-green-600 mt-2 font-medium"></p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div id="stats-bar" class="hidden grid grid-cols-2 md:grid-cols-5 gap-3">
+      <div class="bg-white rounded-xl p-3 border shadow-sm text-center">
+        <p class="text-2xl font-bold text-gray-700" id="stat-total">0</p>
+        <p class="text-xs text-gray-500">Total Mahasiswa</p>
+      </div>
+      <div class="bg-white rounded-xl p-3 border shadow-sm text-center">
+        <p class="text-2xl font-bold text-indigo-600" id="stat-avg">-</p>
+        <p class="text-xs text-gray-500">Rata-rata</p>
+      </div>
+      <div class="bg-white rounded-xl p-3 border shadow-sm text-center">
+        <p class="text-2xl font-bold text-green-600" id="stat-max">-</p>
+        <p class="text-xs text-gray-500">Nilai Tertinggi</p>
+      </div>
+      <div class="bg-white rounded-xl p-3 border shadow-sm text-center">
+        <p class="text-2xl font-bold text-red-500" id="stat-min">-</p>
+        <p class="text-xs text-gray-500">Nilai Terendah</p>
+      </div>
+      <div class="bg-white rounded-xl p-3 border shadow-sm text-center">
+        <p class="text-2xl font-bold text-emerald-600" id="stat-pass">-</p>
+        <p class="text-xs text-gray-500">Lulus (&ge;55)</p>
+      </div>
+    </div>
+
+    <!-- Tabel -->
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-wrap gap-3">
+        <h2 class="font-bold text-gray-700">Daftar Nilai</h2>
+        <div class="flex gap-2 flex-wrap">
+          <input id="search-input" type="text" placeholder="Cari nama / NRP..."
+            oninput="renderTable()"
+            class="border border-gray-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-indigo-400 transition-colors w-44" />
+          <button onclick="exportCSV()"
+            class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors">
+            Export CSV
+          </button>
+          <button onclick="clearAll()"
+            class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold px-4 py-2 rounded-lg transition-colors border border-red-200">
+            Hapus Semua
+          </button>
+        </div>
+      </div>
+
+      <div id="empty-state" class="text-center py-14 text-gray-400">
+        <div class="text-5xl mb-3">📋</div>
+        <p class="text-sm">Belum ada data. Tambahkan kode hasil mahasiswa di atas.</p>
+      </div>
+
+      <div id="table-wrapper" class="hidden overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-200 text-gray-600 text-xs uppercase tracking-wide">
+              <th class="px-4 py-3 text-left w-10" onclick="sortBy('idx')">#</th>
+              <th class="px-4 py-3 text-left" onclick="sortBy('nrp')">NRP</th>
+              <th class="px-4 py-3 text-left" onclick="sortBy('nama')">Nama</th>
+              <th class="px-4 py-3 text-center" onclick="sortBy('skor1')">P1</th>
+              <th class="px-4 py-3 text-center" onclick="sortBy('skor2')">P2</th>
+              <th class="px-4 py-3 text-center" onclick="sortBy('avg')">Nilai Akhir</th>
+              <th class="px-4 py-3 text-center">Grade</th>
+              <th class="px-4 py-3 text-center" onclick="sortBy('benar2')">Benar</th>
+              <th class="px-4 py-3 text-center" onclick="sortBy('salah2')">Salah</th>
+              <th class="px-4 py-3 text-center" onclick="sortBy('kosong2')">Kosong</th>
+              <th class="px-4 py-3 text-center" onclick="sortBy('ts')">Waktu Kumpul</th>
+              <th class="px-4 py-3 text-center w-10"></th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Distribusi Nilai -->
+    <div id="dist-section" class="hidden bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+      <h2 class="font-bold text-gray-700 mb-4">Distribusi Nilai</h2>
+      <div class="space-y-3" id="dist-bars"></div>
+    </div>
+
+  </main>
+
+  <footer class="text-center text-gray-400 text-xs py-8">
+    Rekap Nilai &mdash; Geologi Fisik 2026
+  </footer>
+
+<script>
+// ===================== STORAGE =====================
+const STORAGE_KEY = 'geofis_rekap_data';
+
+function loadData() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveData(arr) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+}
+
+// ===================== DECODE =====================
+function decodeKode(kode) {
+  try {
+    const json = decodeURIComponent(escape(atob(kode.trim())));
+    const d = JSON.parse(json);
+    // Format baru: avg (2-percobaan)
+    if (typeof d.avg === 'number') {
+      d._skor = d.avg; // gunakan avg sebagai skor efektif
+      return d;
+    }
+    // Format lama: skor
+    if (typeof d.skor === 'number') {
+      d._skor = d.skor;
+      d.avg   = d.skor;
+      return d;
+    }
+    throw new Error('invalid');
+  } catch(e) { return null; }
+}
+
+// Helper: ambil skor efektif (avg untuk format baru, skor untuk lama)
+function efSkor(d) { return typeof d.avg === 'number' ? d.avg : (d.skor || 0); }
+
+// ===================== GRADE =====================
+function nilaiHuruf(skor) {
+  if (skor >= 85) return 'A';
+  if (skor >= 70) return 'B';
+  if (skor >= 55) return 'C';
+  if (skor >= 40) return 'D';
+  return 'E';
+}
+function nilaiClass(huruf) {
+  return { A: 'nilai-a', B: 'nilai-b', C: 'nilai-c', D: 'nilai-d', E: 'nilai-e' }[huruf] || 'nilai-e';
+}
+
+// ===================== SORT STATE =====================
+let sortField = 'idx';
+let sortDir = 'asc';
+
+function sortBy(field) {
+  if (sortField === field) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+  else { sortField = field; sortDir = (field === 'nama' || field === 'nrp') ? 'asc' : 'desc'; }
+  renderTable();
+}
+
+// ===================== FORMAT DATE =====================
+function formatTs(ts) {
+  if (!ts) return '-';
+  const d = new Date(ts);
+  const pad = n => String(n).padStart(2,'0');
+  return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+// ===================== STATS =====================
+function updateStats(data) {
+  if (!data.length) { document.getElementById('stats-bar').classList.add('hidden'); return; }
+  document.getElementById('stats-bar').classList.remove('hidden');
+  const scores = data.map(d => efSkor(d));
+  const avg = (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1);
+  const pass = data.filter(d => efSkor(d) >= 55).length;
+  document.getElementById('stat-total').textContent = data.length;
+  document.getElementById('stat-avg').textContent = avg;
+  document.getElementById('stat-max').textContent = Math.max(...scores);
+  document.getElementById('stat-min').textContent = Math.min(...scores);
+  document.getElementById('stat-pass').textContent = pass + '/' + data.length;
+  updateDist(data);
+}
+
+function updateDist(data) {
+  const sec = document.getElementById('dist-section');
+  const bars = document.getElementById('dist-bars');
+  if (!data.length) { sec.classList.add('hidden'); return; }
+  sec.classList.remove('hidden');
+  const grades = ['A','B','C','D','E'];
+  const counts = {};
+  grades.forEach(g => counts[g] = 0);
+  data.forEach(d => counts[nilaiHuruf(efSkor(d))]++);
+  const max = Math.max(...Object.values(counts), 1);
+  bars.innerHTML = grades.map(g => {
+    const pct = Math.round((counts[g] / max) * 100);
+    return `
+      <div class="flex items-center gap-3">
+        <span class="badge ${nilaiClass(g)} w-8 text-center">${g}</span>
+        <div class="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
+          <div class="h-5 rounded-full transition-all duration-500 ${barColor(g)}" style="width:${pct}%"></div>
+        </div>
+        <span class="text-sm font-semibold text-gray-600 w-16">${counts[g]} mahasiswa</span>
+      </div>`;
+  }).join('');
+}
+function barColor(g) {
+  return { A: 'bg-emerald-400', B: 'bg-blue-400', C: 'bg-yellow-400', D: 'bg-red-400', E: 'bg-gray-400' }[g];
+}
+
+// ===================== RENDER TABLE =====================
+function renderTable() {
+  let data = loadData();
+  data = data.map((d, i) => ({ ...d, idx: i }));
+
+  // Search filter
+  const q = (document.getElementById('search-input')?.value || '').toLowerCase();
+  if (q) {
+    data = data.filter(d =>
+      (d.nama || '').toLowerCase().includes(q) ||
+      (d.nrp  || '').toLowerCase().includes(q)
+    );
+  }
+
+  // Sort
+  data.sort((a, b) => {
+    let va = a[sortField], vb = b[sortField];
+    if (sortField === 'nama' || sortField === 'nrp') {
+      va = (va || '').toLowerCase(); vb = (vb || '').toLowerCase();
+      return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    }
+    return sortDir === 'asc' ? (va - vb) : (vb - va);
+  });
+
+  const allData = loadData();
+  updateStats(allData);
+
+  const tbody = document.getElementById('table-body');
+  const emptyState = document.getElementById('empty-state');
+  const tableWrapper = document.getElementById('table-wrapper');
+
+  if (!allData.length) {
+    emptyState.classList.remove('hidden');
+    tableWrapper.classList.add('hidden');
+    document.getElementById('stats-bar').classList.add('hidden');
+    document.getElementById('dist-section').classList.add('hidden');
+    return;
+  }
+
+  emptyState.classList.add('hidden');
+  tableWrapper.classList.remove('hidden');
+
+  // Update sort headers
+  document.querySelectorAll('th').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    const f = th.getAttribute('onclick')?.match(/sortBy\('(.+?)'\)/)?.[1];
+    if (f === sortField) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+  });
+
+  if (!data.length) {
+    tbody.innerHTML = `<tr><td colspan="12" class="text-center py-8 text-gray-400 text-sm">Tidak ada hasil yang cocok.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map((d, rowIdx) => {
+    const ef   = efSkor(d);
+    const huruf = nilaiHuruf(ef);
+    const cls   = nilaiClass(huruf);
+    const rowBg = rowIdx % 2 === 0 ? '' : 'bg-gray-50/50';
+    // Tampilkan P1, P2 jika ada (format baru), kosong jika tidak ada (format lama)
+    const p1 = (d.skor1 != null) ? d.skor1 : (d.skor != null ? d.skor : '-');
+    const p2 = (d.skor2 != null) ? d.skor2 : '-';
+    const benarDisp  = (d.benar2 != null) ? d.benar2  : (d.benar  != null ? d.benar  : '-');
+    const salahDisp  = (d.salah2 != null) ? d.salah2  : (d.salah  != null ? d.salah  : '-');
+    const kosongDisp = (d.kosong2 != null) ? d.kosong2 : (d.kosong != null ? d.kosong : '-');
+    return `
+      <tr class="border-b border-gray-100 hover:bg-indigo-50/30 transition-colors ${rowBg}">
+        <td class="px-4 py-3 text-gray-400 text-xs">${d.idx + 1}</td>
+        <td class="px-4 py-3 font-mono text-xs text-gray-600">${escHtml(d.nrp || '-')}</td>
+        <td class="px-4 py-3 font-medium text-gray-800">${escHtml(d.nama || '-')}</td>
+        <td class="px-4 py-3 text-center text-blue-600 font-semibold">${p1}</td>
+        <td class="px-4 py-3 text-center text-purple-600 font-semibold">${p2}</td>
+        <td class="px-4 py-3 text-center font-bold text-lg ${ef >= 55 ? 'text-indigo-700' : 'text-red-500'}">${ef}</td>
+        <td class="px-4 py-3 text-center"><span class="badge ${cls}">${huruf}</span></td>
+        <td class="px-4 py-3 text-center text-green-600 font-semibold">${benarDisp}</td>
+        <td class="px-4 py-3 text-center text-red-500 font-semibold">${salahDisp}</td>
+        <td class="px-4 py-3 text-center text-gray-400 font-semibold">${kosongDisp}</td>
+        <td class="px-4 py-3 text-center text-xs text-gray-500">${formatTs(d.ts)}</td>
+        <td class="px-4 py-3 text-center">
+          <button onclick="removeEntry(${d.idx})" class="text-red-300 hover:text-red-500 text-lg leading-none" title="Hapus">&#215;</button>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ===================== ADD ENTRY =====================
+function addEntry() {
+  const kode = document.getElementById('kode-input').value.trim();
+  const errEl = document.getElementById('input-error');
+  const okEl  = document.getElementById('input-success');
+  errEl.classList.add('hidden');
+  okEl.classList.add('hidden');
+
+  if (!kode) { showErr('Kode tidak boleh kosong.'); return; }
+
+  const d = decodeKode(kode);
+  if (!d) { showErr('Kode tidak valid atau rusak. Pastikan mahasiswa menyalin kode lengkap.'); return; }
+
+  // Check duplicate (same NRP + same timestamp)
+  const existing = loadData();
+  const isDuplicate = existing.some(e => e.nrp === d.nrp && e.ts === d.ts);
+  if (isDuplicate) { showErr(`Data untuk NRP ${d.nrp} dengan timestamp yang sama sudah ada.`); return; }
+
+  existing.push(d);
+  saveData(existing);
+  document.getElementById('kode-input').value = '';
+  okEl.textContent = `✓ Berhasil menambahkan: ${d.nama || d.nrp} — Nilai Akhir ${efSkor(d)}`;
+  okEl.classList.remove('hidden');
+  setTimeout(() => okEl.classList.add('hidden'), 4000);
+  renderTable();
+}
+
+function showErr(msg) {
+  const el = document.getElementById('input-error');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+
+// Allow Enter key to add
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('kode-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addEntry();
+  });
+  renderTable();
+});
+
+// ===================== REMOVE ENTRY =====================
+function removeEntry(idx) {
+  if (!confirm('Hapus data mahasiswa ini?')) return;
+  const data = loadData();
+  data.splice(idx, 1);
+  saveData(data);
+  renderTable();
+}
+
+// ===================== CLEAR ALL =====================
+function clearAll() {
+  const data = loadData();
+  if (!data.length) { alert('Tidak ada data untuk dihapus.'); return; }
+  if (!confirm(`Hapus semua ${data.length} data mahasiswa? Tindakan ini tidak bisa dibatalkan.`)) return;
+  saveData([]);
+  renderTable();
+}
+
+// ===================== EXPORT CSV =====================
+function exportCSV() {
+  const data = loadData();
+  if (!data.length) { alert('Tidak ada data untuk diekspor.'); return; }
+
+  const header = ['No','NRP','Nama','Skor P1','Skor P2','Nilai Akhir','Grade','Benar','Salah','Kosong','Waktu Kumpul'];
+  const rows = data.map((d, i) => {
+    const ef = efSkor(d);
+    const p1 = (d.skor1 != null) ? d.skor1 : (d.skor != null ? d.skor : '');
+    const p2 = (d.skor2 != null) ? d.skor2 : '';
+    const br = (d.benar2 != null) ? d.benar2 : (d.benar != null ? d.benar : '');
+    const sl = (d.salah2 != null) ? d.salah2 : (d.salah != null ? d.salah : '');
+    const ks = (d.kosong2 != null) ? d.kosong2 : (d.kosong != null ? d.kosong : '');
+    return [
+      i+1,
+      `"${(d.nrp  || '').replace(/"/g,'""')}"`,
+      `"${(d.nama || '').replace(/"/g,'""')}"`,
+      p1, p2, ef, nilaiHuruf(ef),
+      br, sl, ks,
+      `"${formatTs(d.ts)}"`
+    ];
+  });
+
+  const csv = [header.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `rekap_geologi_fisik_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
