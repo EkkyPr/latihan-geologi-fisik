@@ -94,7 +94,7 @@
             class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors">
             Export CSV
           </button>
-          <button onclick="clearAll()"
+          <button id="clear-all-btn" onclick="confirmClearAll()"
             class="bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold px-4 py-2 rounded-lg transition-colors border border-red-200">
             Hapus Semua
           </button>
@@ -325,7 +325,7 @@ function renderTable() {
         <td class="px-4 py-3 text-center text-gray-400 font-semibold">${kosongDisp}</td>
         <td class="px-4 py-3 text-center text-xs text-gray-500">${formatTs(d.ts)}</td>
         <td class="px-4 py-3 text-center">
-          <button onclick="removeEntry(${d.idx})" class="text-red-300 hover:text-red-500 text-lg leading-none" title="Hapus">&#215;</button>
+          <button id="del-btn-${d.idx}" onclick="confirmDelete(${d.idx})" class="text-red-300 hover:text-red-500 text-lg leading-none" title="Hapus">&#215;</button>
         </td>
       </tr>`;
   }).join('');
@@ -377,8 +377,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===================== REMOVE ENTRY =====================
+function confirmDelete(idx) {
+  // Inline confirmation — no confirm() dialog needed
+  const btn = document.getElementById('del-btn-' + idx);
+  if (!btn) return;
+  const cell = btn.parentElement;
+  // Replace cell content with Yakin? ✓ ✗
+  cell.innerHTML = `
+    <span class="text-xs text-red-600 font-semibold mr-1">Hapus?</span>
+    <button onclick="removeEntry(${idx})"
+      class="text-white bg-red-500 hover:bg-red-600 rounded px-1.5 py-0.5 text-xs font-bold mr-1" title="Ya, hapus">✓</button>
+    <button onclick="renderTable()"
+      class="text-gray-500 hover:text-gray-700 bg-gray-200 hover:bg-gray-300 rounded px-1.5 py-0.5 text-xs font-bold" title="Batal">✗</button>`;
+}
+
 function removeEntry(idx) {
-  if (!confirm('Hapus data mahasiswa ini?')) return;
   const data = loadData();
   data.splice(idx, 1);
   saveData(data);
@@ -386,12 +399,32 @@ function removeEntry(idx) {
 }
 
 // ===================== CLEAR ALL =====================
-function clearAll() {
+function confirmClearAll() {
   const data = loadData();
-  if (!data.length) { alert('Tidak ada data untuk dihapus.'); return; }
-  if (!confirm(`Hapus semua ${data.length} data mahasiswa? Tindakan ini tidak bisa dibatalkan.`)) return;
+  if (!data.length) { showToast('Tidak ada data untuk dihapus.', 'warn'); return; }
+  const btn = document.getElementById('clear-all-btn');
+  if (!btn) return;
+  btn.innerHTML = `
+    <span class="mr-1">Hapus ${data.length} data?</span>
+    <span onclick="clearAll()" class="inline-block cursor-pointer text-white bg-red-600 hover:bg-red-700 rounded px-1.5 py-0.5 font-bold">✓</span>
+    <span onclick="cancelClearAll()" class="inline-block cursor-pointer text-gray-600 bg-gray-200 hover:bg-gray-300 rounded px-1.5 py-0.5 font-bold ml-1">✗</span>`;
+}
+function cancelClearAll() {
+  const btn = document.getElementById('clear-all-btn');
+  if (btn) btn.innerHTML = 'Hapus Semua';
+}
+function clearAll() {
   saveData([]);
   renderTable();
+}
+function showToast(msg, type) {
+  let t = document.getElementById('_toast');
+  if (!t) { t = document.createElement('div'); t.id='_toast'; t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.15);'; document.body.appendChild(t); }
+  t.style.background = type==='warn' ? '#fbbf24' : '#22c55e';
+  t.style.color = type==='warn' ? '#78350f' : '#fff';
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 3000);
 }
 
 // ===================== EXPORT CSV =====================
